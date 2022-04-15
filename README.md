@@ -1,2 +1,24 @@
-# CaCestCool-DFS
-Projet de validation de module. Utilisation de VueJS côté Front et un environnement Node côté back
+# cacestcool
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

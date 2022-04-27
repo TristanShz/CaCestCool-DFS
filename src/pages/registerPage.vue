@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col justify-center items-center h-full overflow-hidden relative">
-    <img src=".././assets/bgVector1.svg" alt="background" class="absolute -right-64 -bottom-4">
-    <img src=".././assets/bgVector2.svg" alt="background" class="absolute top-0 left-0">
+    <img src=".././assets/bgVector1.svg" alt="background" class="absolute -right-64 -bottom-4 -z-1">
+    <img src=".././assets/bgVector2.svg" alt="background" class="absolute top-0 left-0 -z-1">
     <img src=".././assets/logo.png" alt="logo-CaCestCool" class="w-72 mb-16 ">
-    <form class="flex flex-col items-center w-1/4">
+    <form class="flex flex-col items-center w-1/4 z-0">
       <input type="email" placeholder="Email" class="w-full h-12 mb-8 pl-5 rounded-full">
       <input type="password" placeholder="Mot de passe" class="w-full h-12 mb-8 pl-5 rounded-full">
       <input type="password" placeholder="Confirmer le mot de passe" class="w-full h-12 mb-8 pl-5 rounded-full">

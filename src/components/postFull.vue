@@ -28,12 +28,15 @@
       nisi.
     </p>
     <div class="line my-8"></div>
+    <post-comments></post-comments>
   </div>
 </template>
 
 <script>
+import PostComments from "@/components/postComments";
 export default {
-  name: "PostFull"
+  name: "PostFull",
+  components: {PostComments},
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="postpreview flex bg-white h-32 pl-8 my-10">
+  <div class="postpreview flex bg-white h-32 pl-8 my-5 w-full">
     <img src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full mr-5 self-center">
     <div class="flex flex-col mt-3 w-3/4">
       <h1 class="font-bold">Comment JavaScript a changé le game</h1>
@@ -23,6 +23,5 @@ export default {
   .postpreview{
     border-radius: 30px;
     filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
-    width: 488px;
   }
 </style>

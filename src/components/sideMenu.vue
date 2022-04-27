@@ -9,9 +9,9 @@
 
 
     <ul class="text-xl ml-10">
-      <li class="font-bold my-6">Mon mur</li>
+      <router-link to="/home"><li class="font-bold my-6">Mon mur</li></router-link>
       <li class="my-6">Mes messages</li>
-      <li class="my-6">Mon compte</li>
+      <router-link to="/account"><li class="my-6" >Mon compte</li></router-link>
     </ul>
   </div>
 </template>
@@ -30,4 +30,5 @@ export default {
     background: rgba(237, 237, 237, 0.37);
     height: 70px;
   }
+
 </style>

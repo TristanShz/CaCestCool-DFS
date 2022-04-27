@@ -1,15 +1,7 @@
 <template>
   <div class="w-full h-full flex">
     <side-menu></side-menu>
-    <div id="wallContent" class="flex flex-col items-center w-2/5 px-20 overflow-scroll">
-      <h1 class="text-titlegrey text-4xl mt-32 mb-5 self-start">Mon Mur</h1>
-      <post-preview></post-preview>
-      <post-preview></post-preview>
-      <post-preview></post-preview>
-      <post-preview></post-preview>
-      <post-preview></post-preview>
-      <post-preview></post-preview>
-    </div>
+    <post-preview></post-preview>
     <post-full></post-full>
 
   </div>
@@ -26,10 +18,5 @@ export default {
 </script>
 
 <style scoped>
-  #wallContent h1{
-    font-family: 'Timmana', sans-serif;
-  }
-  #wallContent::-webkit-scrollbar{
-    display: none;
-  }
+
 </style>

@@ -7,3 +7,11 @@ exports.add = async (postId, comment) => {
     post.markModified('comments');
     return post.save();
 }
+exports.delete = async (id, commentId) => {
+    console.log(id);
+    console.log(commentId);
+    const post = await Post.findOne({_id: id}).exec();
+    await post.comments.id(commentId).remove();
+    post.markModified('comments');
+    return post.save();
+}

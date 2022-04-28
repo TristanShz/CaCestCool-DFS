@@ -38,11 +38,11 @@ const postSchema = new Schema(
             type: String,
             required: false,
         },
-        // likes: {
-        //     type: Schema.Types.ObjectId,
-        //     ref: User,
-        //     required: false,
-        // },
+        likes: {
+            type: [Schema.Types.ObjectId],
+            ref: User,
+            required: false,
+        },
         comments: {
             type: [commentsSchema],
             required: false,

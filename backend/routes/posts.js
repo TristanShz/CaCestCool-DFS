@@ -12,7 +12,7 @@ router.post("/:id", CommentsController.add)
 
 //route DELETE /post/id
 router.delete("/:id");
-router.delete("/:id/:commentId")
+router.delete("/:id/:commentId", CommentsController.delete)
 //route UPDATE /post/id
 router.put("/:id");
 

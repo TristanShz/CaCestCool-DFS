@@ -7,7 +7,6 @@
         <input type="text" placeholder="Don Cicci" class="w-full h-12 mb-8 pl-5 rounded-full">
         <input type="text" placeholder="Lara" class="w-full h-12 mb-8 pl-5 rounded-full">
         <input type="text" placeholder="laradoncicicai@gmail.com" class="w-full h-12 mb-8 pl-5 rounded-full">
-        <input type="date" class="w-full h-12 mb-8 pl-5 rounded-full">
         <input type="file" class="w-full h-12 mb-8 pl-5 rounded-full">
         <input type="text" placeholder="**********" class="w-full h-12 mb-2 pl-5 rounded-full">
         <p class="underline font-light mb-8">Modifier mon mot de passe</p>

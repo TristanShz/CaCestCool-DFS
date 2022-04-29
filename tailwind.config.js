@@ -11,6 +11,7 @@ module.exports = {
       "lightgrey": "#444444",
       "titlegrey": "#838383",
       "commentgrey": "#DEDEDE",
+      "red": "rgb(239 68 68)",
     },
     extend: {},
   },

@@ -57,15 +57,11 @@ require("dotenv").config();
             return res.status(400).send({message:"Veuillez remplir les deux champs"});
         }
         const user = await userService.getOne({email: req.body.email});
-        const password = await userService.getPassword(user._id)
         if(!user){
             return res.status(404).send({message:"Aucun utilisateur avec cet email"});
         }
-
+        const password = await userService.getPassword(user._id)
         const checkPassword = await userService.comparePasswords(req.body.password, password);
-        console.log(req.body.password);
-        console.log(password.password);
-        console.log(checkPassword);
         if(checkPassword){
             const token = jwt.sign(
                 {
@@ -75,8 +71,7 @@ require("dotenv").config();
                 process.env.SECRET,
                 {expiresIn: "3 hours" }
             );
-            console.log(token, user);
-            return res.status(200).json({access_token: token, id: user._id});
+            return res.status(200).json({access_token: token, user: user});
         }else{
             return res.status(400).json({ message: "Mauvais mot de passe"})
         }

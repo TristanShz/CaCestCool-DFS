@@ -19,7 +19,7 @@ app.use(
     })
 );
 
-app.use("/user", usersRouter);
+app.use("/users", usersRouter);
 app.use("/post", postsRouter);
 
 module.exports = app;

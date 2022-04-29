@@ -1,4 +1,6 @@
 const userService = require("../services/users.js");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
     exports.getList = async (req, res) => {
         try{
@@ -10,7 +12,7 @@ const userService = require("../services/users.js");
     }
     exports.getOne = async (req, res) => {
         try{
-            const user = await userService.getOne(req.params.id);
+            const user = await userService.getOne({id: req.params.id});
             res.status(200).send(user);
         }catch(e){
             res.status(400).send(e);
@@ -49,4 +51,34 @@ const userService = require("../services/users.js");
         }catch(e){
             res.status(400).send(e);
         }
+    }
+    exports.login = async (req, res) => {
+        if(!req.body.email || !req.body.password){
+            return res.status(400).send({message:"Veuillez remplir les deux champs"});
+        }
+        const user = await userService.getOne({email: req.body.email});
+        const password = await userService.getPassword(user._id)
+        if(!user){
+            return res.status(404).send({message:"Aucun utilisateur avec cet email"});
+        }
+
+        const checkPassword = await userService.comparePasswords(req.body.password, password);
+        console.log(req.body.password);
+        console.log(password.password);
+        console.log(checkPassword);
+        if(checkPassword){
+            const token = jwt.sign(
+                {
+                    id: user._id,
+                    email: user.email
+                },
+                process.env.SECRET,
+                {expiresIn: "3 hours" }
+            );
+            console.log(token, user);
+            return res.status(200).json({access_token: token, id: user._id});
+        }else{
+            return res.status(400).json({ message: "Mauvais mot de passe"})
+        }
+
     }

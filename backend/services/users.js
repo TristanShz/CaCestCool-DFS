@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
         const SALT_ROUNDS = 10;
         return bcrypt.hash(password, SALT_ROUNDS);
     }
-    exports.comparePasswords= async (plainTextPass, hashPass) =>{
-        return await bcrypt.compare(plainTextPass, hashPass);
+    exports.comparePasswords= (plainTextPass, hashPass) =>{
+        return bcrypt.compare(plainTextPass, hashPass);
     }
     exports.add = (user) =>{
         const newUser = new User(user);
@@ -18,8 +18,13 @@ const bcrypt = require('bcrypt');
     exports.getUsers = () =>{
         return User.find({});
     }
-    exports.getOne = (id) => {
-        return User.findOne({_id: id});
+    exports.getOne = (user) => {
+        if(user.id) return User.findOne({_id: user.id});
+        if(user.email) return User.findOne({email: user.email});
+    }
+    exports.getPassword = async (id) => {
+      const user = await User.findOne({_id: id}).select("password").exec();
+      return user.password;
     }
     exports.modify = (id,user) => {
         return User.updateOne({_id: id}, user);

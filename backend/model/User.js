@@ -26,5 +26,7 @@ const userSchema = new Schema(
     {
         timestamps: { createdAt: 'created_at'}
     })
-
+userSchema.methods.getPassword = function(){
+    return "hello";
+}
 module.exports = mongoose.model("User", userSchema)

@@ -4,6 +4,7 @@
       <img v-if="$store.state.isLogged.image" src="" alt="" class="w-16 h-16 rounded-full mr-4">
       <div v-else
            class="userImageDefault w-16 h-16 rounded-full mr-4 text-4xl"
+           v-bind:style="{ background: $store.state.isLogged.defaultColor}"
       >{{$store.state.isLogged.fullName.charAt(0)}}</div>
       <div class="w-5/6">
         <input type="text"
@@ -56,7 +57,7 @@ export default {
   },
   methods: {
     checkTextArea(){
-      const textarea = document.querySelector('textarea[name="content"]');
+      const textarea = document.querySelector('textarea');
       textarea.style.height = textarea.scrollHeight + "px";
     },
     fileInput(event){
@@ -74,13 +75,19 @@ export default {
     async addPost(){
       if(this.title.length && this.description.length){
         const body = new FormData(document.querySelector('form'));
-        console.log(body)
         axios.post("http://localhost:3000/post", body, this.$store.state.header)
-            .then(response => {
-              console.log(response);
+            .then( () => {
+                axios.get("http://localhost:3000/post",this.$store.state.header)
+                  .then(response => {
+                    this.title = "";
+                    this.description= "";
+                    this.removeImage();
+                    this.$store.dispatch("setPosts", response.data);
+                })
             })
-            .catch(error => {
-              console.log(error);
+            .catch((e) => {
+              console.log(e);
+              this.errorMessage = "Erreur lors de l'envoi du formulaire, veuillez réessayer"
             })
       }else{
         this.errorMessage = "Les champs titre et description sont nécessaires"

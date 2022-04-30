@@ -54,13 +54,8 @@ const postSchema = new Schema(
         comments: {
             type: [commentsSchema],
             required: false,
-        }
-    },
-    {
-        timestamps: {
-            createdAt: 'created_at',
-            updatedAt: 'updated_at',
-        }
+        },
+        createdAt: {type: Date, default: Date.now()}
     })
 
 module.exports = mongoose.model('Post', postSchema);

@@ -37,7 +37,7 @@
       <button type="submit"
               class="w-56 h-12 bg-blue text-white text-base font-bold mb-8 rounded-full"
       >S'enregistrer</button>
-      <a href="#" class="text-blue">Vous avez déjà un compte ?</a>
+      <router-link to="/login"><a class="text-blue">Vous avez déjà un compte ?</a></router-link>
     </form>
   </div>
 

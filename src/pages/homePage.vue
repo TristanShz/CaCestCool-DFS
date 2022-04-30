@@ -13,9 +13,11 @@
 import SideMenu from "../components/sideMenu"
 import PostPreview from "../components/postPreview"
 import PostFull from "../components/postFull"
+
 export default {
   name: "homePage",
   components: {SideMenu,PostPreview, PostFull},
+
 }
 </script>
 

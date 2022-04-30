@@ -18,7 +18,7 @@
               type="submit"
       >Se connecter</button>
       <span class="text-red text-sm font-light mb-8">{{errorMessage}}</span>
-      <a href="#" class="text-blue">Vous n'avez pas de compte ?</a>
+      <router-link to="/"><a href="#" class="text-blue">Vous n'avez pas de compte ?</a></router-link>
     </form>
   </div>
 

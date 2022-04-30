@@ -9,7 +9,6 @@ html, body, #app{
 }
 
 .userImageDefault{
-    background-color: #FACB64;
     color: white;
     display: flex;
     align-items: center;

@@ -1,32 +1,17 @@
 <template>
   <div id="postfull" class="w-2/5 bg-white h-full pt-12 px-16 overflow-scroll">
     <div class="flex justify-between mb-5">
-      <div class="flex justify-center items-center rounded-full bg-grey h-8 text-white px-6">4 avril 2022</div>
+      <div class="flex justify-center items-center rounded-full bg-grey h-8 text-white px-6">
+        {{ new Date($store.state.currentPost.createdAt).toLocaleDateString() }}
+      </div>
       <div class="flex justify-center items-center rounded-full bg-blue h-8 font-bold text-white px-6"> Commenter</div>
     </div>
-    <h1 class="font-bold text-xl">Comment le javascript à changé le game</h1>
-    <p class="text-sm text-blue my-1">par Lara Don Cicci</p>
-    <p class="text-sm mb-3">16 likes</p>
+    <h1 class="font-bold text-xl">{{ $store.state.currentPost.title }}</h1>
+    <p class="text-sm text-blue my-1">par {{ $store.state.currentPost.user.fullName }}</p>
+    <p class="text-sm mb-3">{{ $store.state.currentPost.likes.length }} likes</p>
     <div class="line"></div>
-    <img class="my-10 w-full" src="../assets/postimage.png" alt="">
-    <p class="text-sm">Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis
-      deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut
-      voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse
-      pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint
-      deserunt ut voluptate aute id deserunt nisi.
-      <br><br>
-      Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore
-      cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt
-      nisi.
-      <br><br>
-      Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore
-      cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt
-      nisi.
-      <br><br>
-      Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore
-      cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt
-      nisi.
-    </p>
+    <img class="my-10 w-full" :src="require(`@/assets/uploads/${$store.state.currentPost.image}`)" alt="">
+    <p class="text-sm">{{ $store.state.currentPost.description }}</p>
     <div class="line my-8"></div>
     <post-comments></post-comments>
   </div>

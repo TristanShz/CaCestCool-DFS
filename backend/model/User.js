@@ -21,6 +21,20 @@ const userSchema = new Schema(
         profilPicture: {
             type: String,
             required: false,
+        },
+        defaultColor: {
+            type: String,
+            default: () => {
+                const colorList = [
+                    "#97BBFC",
+                    "#FC81BF",
+                    "#2872FA",
+                    "#FACB64",
+                    "#73FA73",
+                    "#B0ACFC"
+                ];
+                return colorList[Math.floor(Math.random()*6)];
+            }
         }
     },
     {

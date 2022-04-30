@@ -16,6 +16,7 @@
       <li class="my-6">Mes messages</li>
       <router-link to="/account"><li class="my-6" >Mon compte</li></router-link>
     </ul>
+
   </div>
 </template>
 

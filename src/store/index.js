@@ -43,6 +43,11 @@ const store = new Vuex.Store({
         },
         setCurrentPost(context, post){
             context.commit("setCurrentPost", post);
+        },
+        disconnect(context){
+            localStorage.clear();
+            context.commit("logUser", {});
+            location.href= '/login';
         }
     }
 

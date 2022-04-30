@@ -12,6 +12,7 @@
         <p class="underline font-light mb-8">Modifier mon mot de passe</p>
         <button class="w-56 h-12 bg-blue text-white text-base font-bold mb-8 rounded-full">Modifier</button>
       </form>
+      <p class="text-red underline hover:cursor-pointer" @click="$store.dispatch('disconnect')" >Se déconnecter</p>
     </div>
     <post-preview></post-preview>
   </div>

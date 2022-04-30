@@ -10,7 +10,10 @@
     <p class="text-sm text-blue my-1">par {{ $store.state.currentPost.user.fullName }}</p>
     <p class="text-sm mb-3">{{ $store.state.currentPost.likes.length }} likes</p>
     <div class="line"></div>
-    <img class="my-10 w-full" :src="require(`@/assets/uploads/${$store.state.currentPost.image}`)" alt="">
+    <img v-if="$store.state.currentPost.image"
+         class="my-10 w-full"
+         :src="require(`@/assets/uploads/${$store.state.currentPost.image}`)"
+         alt="Post image">
     <p class="text-sm">{{ $store.state.currentPost.description }}</p>
     <div class="line my-8"></div>
     <post-comments></post-comments>

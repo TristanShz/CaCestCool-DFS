@@ -3,25 +3,36 @@
     <h1 class="text-titlegrey text-4xl mt-32 mb-5 self-start">Mon Mur</h1>
     <add-post></add-post>
     <div id="line" class="mt-5"></div>
-    <div class="postpreview flex bg-white h-32 pl-8 my-5 w-full hover:cursor-pointer hover:scale-105"
+    <div class="postpreview flex bg-white h-32 my-5 w-full hover:cursor-pointer hover:scale-105"
          v-for="post in $store.state.posts"
          :key="post._id"
-         @click="$store.dispatch('setCurrentPost',post)"
     >
-      <img v-if="post.user.image" src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full  self-center">
-      <div v-else
-      class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
-      v-bind:style="{ background: $store.state.isLogged.defaultColor}"
-      >{{$store.state.isLogged.fullName.charAt(0)}}</div>
-      <div class="flex flex-col mt-3 w-3/4">
-        <h2 class="font-bold">{{ post.title }}</h2>
-        <p class="leading-4 mt-1 text-lightgrey">{{ post.description }}</p>
-        <div class="flex justify-between my-4 text-lightgrey font-light">
-          <span class="flex"><img class="mr-2" src="../assets/comment.svg" alt="">{{ post.comments.length }} comments</span>
-          <span class="flex">{{ post.likes.length }}<img class="ml-2" src="../assets/thumb.svg"></span>
+      <div class="flex h-32 pl-8 w-full" @click="$store.dispatch('setCurrentPost',post)">
+        <img v-if="post.user.image" src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full  self-center">
+        <div v-else
+             class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
+             v-bind:style="{ background: $store.state.isLogged.defaultColor}"
+        >{{$store.state.isLogged.fullName.charAt(0)}}</div>
+        <div class="flex flex-col mt-3 w-3/4">
+          <h2 class="font-bold">{{ post.title }}</h2>
+          <p class="leading-4 mt-1 text-lightgrey">{{ post.description }}</p>
+          <div class="flex justify-between my-4 text-lightgrey font-light">
+            <span class="flex"><img class="mr-2" src="../assets/comment.svg" alt="">{{ post.comments.length }} comments</span>
+            <span class="flex">{{ post.likes.length }}<img class="ml-2" src="../assets/thumb.svg"></span>
+          </div>
         </div>
+        <div id="arrowRight" v-if="$store.state.currentPost === post"></div>
       </div>
-      <div id="arrowRight" v-if="$store.state.currentPost === post"></div>
+      <img src="../assets/edit.svg"
+           class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110"
+           v-if="post.user._id === $store.state.isLogged._id"
+      >
+      <img src="../assets/delete.svg"
+           class="w-8 h-8 absolute top-1 right-5 hover:cursor-pointer hover:scale-110"
+           v-if="post.user._id === $store.state.isLogged._id"
+           @click="deletePost(post._id)"
+      >
+
     </div>
   </div>
 </template>
@@ -34,10 +45,18 @@ export default {
   name: "PostPreview",
   components: {AddPost},
   created() {
-    axios.get("http://localhost:3000/post",this.$store.state.header)
-        .then(response => {
-          this.$store.dispatch("setPosts", response.data);
-        })
+    this.$store.dispatch("setPosts");
+  },
+  methods: {
+    deletePost(id){
+      axios.delete(`http://localhost:3000/post/${id}`, this.$store.state.header)
+          .then(() => {
+            this.$store.dispatch("setPosts");
+          })
+          .catch(error => {
+            console.log(error);
+          })
+    }
   }
 }
 </script>

@@ -77,13 +77,11 @@ export default {
         const body = new FormData(document.querySelector('form'));
         axios.post("http://localhost:3000/post", body, this.$store.state.header)
             .then( () => {
-                axios.get("http://localhost:3000/post",this.$store.state.header)
-                  .then(response => {
-                    this.title = "";
-                    this.description= "";
-                    this.removeImage();
-                    this.$store.dispatch("setPosts", response.data);
-                })
+                this.$store.dispatch("setPosts");
+                this.title = "";
+                this.description= "";
+                this.errorMessage="";
+                this.removeImage();
             })
             .catch((e) => {
               console.log(e);

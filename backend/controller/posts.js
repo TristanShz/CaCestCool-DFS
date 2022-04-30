@@ -8,7 +8,7 @@ exports.add = async (req, res) => {
             user: jwt.verify(token[1], process.env.SECRET).id,
             title: req.body.title,
             description: req.body.description,
-            image: req.file.filename,
+            image: req.file ? req.file.filename: "",
         }
         const post = await postService.add(body);
         res.status(200).send(post);

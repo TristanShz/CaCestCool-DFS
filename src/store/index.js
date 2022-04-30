@@ -43,8 +43,11 @@ const store = new Vuex.Store({
                 console.log(e);
             }
         },
-        setPosts(context, postsList){
-            context.commit("setPosts", postsList);
+        setPosts(context){
+            axios.get("http://localhost:3000/post",context.state.header)
+                .then(response => {
+                    context.commit("setPosts", response.data);
+                })
         },
         setCurrentPost(context, post){
             context.commit("setCurrentPost", post);

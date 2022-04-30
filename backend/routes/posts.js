@@ -1,20 +1,21 @@
 const express = require('express')
 const PostsController = require("../controller/posts.js")
 const CommentsController = require("../controller/comments")
+const verifyJwtToken = require("../middlewares/verifyJwtToken")
 const upload = require("../middlewares/uploadFile")
 const router = express.Router();
 
 //route GET /post
-router.get("/", PostsController.getList);
-router.get("/:id", PostsController.getOne);
+router.get("/", verifyJwtToken, PostsController.getList);
+router.get("/:id", verifyJwtToken, PostsController.getOne);
 //route POST /post
-router.post("/",upload.single("image"), PostsController.add);
-router.post("/:id", CommentsController.add)
+router.post("/",verifyJwtToken, upload.single("image"), PostsController.add);
+router.post("/:id", verifyJwtToken, CommentsController.add)
 
 //route DELETE /post/id
-router.delete("/:id");
-router.delete("/:id/:commentId", CommentsController.delete)
+router.delete("/:id", verifyJwtToken, PostsController.delete);
+router.delete("/:id/:commentId", verifyJwtToken, CommentsController.delete)
 //route UPDATE /post/id
-router.put("/:id", PostsController.modify);
+router.put("/:id", verifyJwtToken, PostsController.modify);
 
 module.exports = router;

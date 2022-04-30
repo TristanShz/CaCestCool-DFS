@@ -5,6 +5,11 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
+        header: {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem('token')
+            }
+        },
         isLogged : {},
         posts: [],
         token: localStorage.getItem('token'),

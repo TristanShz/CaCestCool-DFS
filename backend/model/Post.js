@@ -27,17 +27,20 @@ const postSchema = new Schema(
     {
         user: {
             type:Schema.Types.ObjectId,
-            ref: User
+            ref: User,
+            required: true,
         },
         title: {
           type: String,
           minLength: 1,
           maxLength: 100,
+            required: true,
         },
         description: {
             type: String,
             minLength: 1,
-            maxLength: 280
+            maxLength: 280,
+            required: true,
         },
         image: {
             type: String,

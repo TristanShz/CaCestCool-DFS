@@ -30,12 +30,7 @@ export default {
   name: "PostPreview",
   components: {AddPost},
   created() {
-    const header = {
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem('token')
-      }
-    }
-    axios.get("http://localhost:3000/post",header)
+    axios.get("http://localhost:3000/post",this.$store.state.header)
         .then(response => {
           this.$store.dispatch("setPosts", response.data);
         })

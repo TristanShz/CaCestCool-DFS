@@ -1,8 +1,16 @@
 const postService = require("../services/posts.js");
+const jwt = require("jsonwebtoken");
 
 exports.add = async (req, res) => {
     try{
-        const post = await postService.add(req.body);
+        const token = req.headers.authorization.split(" ");
+        const body = {
+            user: jwt.verify(token[1], process.env.SECRET).id,
+            title: req.body.title,
+            description: req.body.description,
+            image: req.file.filename,
+        }
+        const post = await postService.add(body);
         res.status(200).send(post);
     }catch(e){
         console.log(e);

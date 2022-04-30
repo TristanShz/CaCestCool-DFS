@@ -1,13 +1,14 @@
 const express = require('express')
 const PostsController = require("../controller/posts.js")
 const CommentsController = require("../controller/comments")
+const upload = require("../middlewares/uploadFile")
 const router = express.Router();
 
 //route GET /post
 router.get("/", PostsController.getList);
 router.get("/:id", PostsController.getOne);
 //route POST /post
-router.post("/", PostsController.add);
+router.post("/",upload.single("image"), PostsController.add);
 router.post("/:id", CommentsController.add)
 
 //route DELETE /post/id

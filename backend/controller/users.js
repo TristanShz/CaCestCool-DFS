@@ -75,5 +75,13 @@ require("dotenv").config();
         }else{
             return res.status(400).json({ message: "Mauvais mot de passe"})
         }
-
+    }
+    exports.checkToken = async (req, res) => {
+        try{
+            const decoded = jwt.verify(req.body.token, process.env.SECRET);
+            const userConnected = await userService.getOne({id: decoded.id});
+            res.status(200).send(userConnected);
+        }catch(e){
+            res.status(200).send(null);
+        }
     }

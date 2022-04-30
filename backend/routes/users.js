@@ -7,7 +7,8 @@ router.get("/", UsersController.getList);
 router.get("/:id", UsersController.getOne);
 //route POST /users
 router.post("/", UsersController.add);
-router.post("/login", UsersController.login)
+router.post("/login", UsersController.login);
+router.post("/token", UsersController.checkToken);
 //route DELETE /users/id
 router.delete("/:id", UsersController.delete);
 

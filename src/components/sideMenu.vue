@@ -1,10 +1,13 @@
 <template>
   <div id="menu" class="w-1/5 h-full flex flex-col text-grey">
     <img src="../assets/logo.png" class="self-center w-28 mt-14 mb-10">
-    <img  src="../assets/userExample.jpg"
+    <img v-if="$store.state.isLogged.image" src=""
           class="bg-white w-52 h-52 rounded-full mb-8 self-center border-4 border-white">
+      <div v-else
+           class="userImageDefault w-52 h-52 rounded-full mb-8 self-center border-4 border-white text-9xl"
+      >{{$store.state.isLogged.fullName.charAt(0)}}</div>
     <div id="name" class="w-full my-8 flex items-center justify-center">
-      <h1 class="font-bold text-xl">Lara Don Cicci</h1>
+      <h1 class="font-bold text-xl">{{ $store.state.isLogged.fullName }}</h1>
     </div>
 
 

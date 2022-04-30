@@ -14,6 +14,6 @@ router.post("/:id", CommentsController.add)
 router.delete("/:id");
 router.delete("/:id/:commentId", CommentsController.delete)
 //route UPDATE /post/id
-router.put("/:id");
+router.put("/:id", PostsController.modify);
 
 module.exports = router;

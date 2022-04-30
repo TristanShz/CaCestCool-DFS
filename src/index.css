@@ -7,3 +7,11 @@ html, body, #app{
     height: 100%;
     background-color: #EDEDED;
 }
+
+.userImageDefault{
+    background-color: darkcyan;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

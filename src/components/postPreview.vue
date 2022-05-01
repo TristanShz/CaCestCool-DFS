@@ -15,17 +15,18 @@
         >{{post.user.fullName.charAt(0)}}</div>
         <div class="flex flex-col mt-3 w-3/4">
           <h2 class="font-bold">{{ post.title }}</h2>
-          <p class="leading-4 mt-1 text-lightgrey">{{ post.description.slice(0, 120) + "..." }}</p>
+          <p class="leading-4 mt-1 text-lightgrey">{{ post.description.slice(0, 110) + "..." }}</p>
           <div class="flex justify-between my-4 text-lightgrey font-light">
             <span class="flex"><img class="mr-2" src="../assets/comment.svg" alt="">{{ post.comments.length }} comments</span>
             <span class="flex">{{ post.likes.length }}<img class="ml-2" src="../assets/thumb.svg"></span>
           </div>
         </div>
-        <div id="arrowRight" v-if="$store.state.currentPost === post"></div>
+        <div id="arrowRight" v-if="$store.state.currentPost === post || $store.state.onEditPost === post"></div>
       </div>
       <img src="../assets/edit.svg"
            class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
            v-if="post.user._id === $store.state.isLogged._id"
+           @click="$store.dispatch('setOnEditPost', post)"
       >
       <img src="../assets/delete.svg"
            class="w-8 h-8 absolute top-1 right-5 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
@@ -52,6 +53,9 @@ export default {
       axios.delete(`http://localhost:3000/post/${id}`, this.$store.state.header)
           .then(() => {
             this.$store.dispatch("setPosts");
+            if(this.$store.state.currentPost._id === id){
+              this.$store.dispatch("setCurrentPost", {});
+            }
           })
           .catch(error => {
             console.log(error);

@@ -10,16 +10,22 @@ const store = new Vuex.Store({
         posts: [],
         token: localStorage.getItem('token'),
         currentPost: {},
+        onEditPost: {},
     },
     mutations: {
         logUser(state, user){
             state.isLogged = user;
         },
         setPosts(state, postsList){
-            state.posts = postsList;
+            state.posts = postsList.reverse();
         },
         setCurrentPost(state,post){
+            if(state.onEditPost._id) state.onEditPost = {};
             state.currentPost = state.currentPost === post ? {} : post;
+        },
+        setOnEditPost(state,post){
+            if(state.currentPost._id) state.currentPost = {};
+            state.onEditPost  = state.onEditPost === post ? {} : post;
         },
         setHeader(state){
             state.header = {
@@ -56,6 +62,9 @@ const store = new Vuex.Store({
         },
         setCurrentPost(context, post){
             context.commit("setCurrentPost", post);
+        },
+        setOnEditPost(context, post){
+            context.commit("setOnEditPost", post);
         },
         disconnect(context){
             localStorage.clear();

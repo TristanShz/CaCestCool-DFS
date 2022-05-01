@@ -5,6 +5,7 @@
     <transition name="slide">
       <post-full v-if="$store.state.currentPost._id"></post-full>
     </transition>
+      <edit-post v-if="$store.state.onEditPost._id"></edit-post>
 
   </div>
 </template>
@@ -13,20 +14,21 @@
 import SideMenu from "../components/sideMenu"
 import PostPreview from "../components/postPreview"
 import PostFull from "../components/postFull"
+import EditPost from "@/components/editPost";
 
 export default {
   name: "homePage",
-  components: {SideMenu,PostPreview, PostFull},
+  components: {EditPost, SideMenu,PostPreview, PostFull},
 
 }
 </script>
 
 <style scoped>
   .slide-enter-active{
-    animation: slideIn 1s;
+    animation: slideIn .5s;
   }
   .slide-leave-active{
-    animation: slideOut 1s;
+    animation: slideOut .5s;
   }
   @keyframes slideIn {
     0% { transform: translateX(100%)}

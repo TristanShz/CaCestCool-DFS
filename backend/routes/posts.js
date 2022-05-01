@@ -6,7 +6,7 @@ const upload = require("../middlewares/uploadFile")
 const router = express.Router();
 
 //route GET /post
-router.get("/", verifyJwtToken, PostsController.getList);
+router.get("/", PostsController.getList);
 router.get("/:id", verifyJwtToken, PostsController.getOne);
 //route POST /post
 router.post("/",verifyJwtToken, upload.single("image"), PostsController.add);

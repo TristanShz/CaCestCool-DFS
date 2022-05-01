@@ -7,7 +7,7 @@
          v-for="post in $store.state.posts"
          :key="post._id"
     >
-      <div class="flex h-32 pl-8 w-full" @click="$store.dispatch('setCurrentPost',post)">
+      <div class="flex h-32 pl-8 w-full" @click="$store.dispatch('setCurrentPost',post._id)">
         <img v-if="post.user.image" src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full  self-center">
         <div v-else
              class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
@@ -18,7 +18,10 @@
           <p class="leading-4 mt-1 text-lightgrey">{{ post.description.slice(0, 110) + "..." }}</p>
           <div class="flex justify-between my-4 text-lightgrey font-light">
             <span class="flex"><img class="mr-2" src="../assets/comment.svg" alt="">{{ post.comments.length }} comments</span>
-            <span class="flex">{{ post.likes.length }}<img class="ml-2" src="../assets/thumb.svg"></span>
+            <span class="flex text-blue font-bold" v-if="post.likes.includes($store.state.isLogged._id)">
+              {{ post.likes.length }}<img class="ml-0.5" src="../assets/blueThumb.svg">
+            </span>
+            <span class="flex" v-else>{{ post.likes.length }}<img class="ml-1" src="../assets/thumb.svg"></span>
           </div>
         </div>
         <div id="arrowRight" v-if="$store.state.currentPost === post || $store.state.onEditPost === post"></div>

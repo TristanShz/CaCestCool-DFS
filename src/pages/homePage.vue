@@ -3,7 +3,7 @@
     <side-menu></side-menu>
     <post-preview></post-preview>
     <transition name="slide">
-      <post-full v-if="$store.state.currentPost._id"></post-full>
+      <post-full v-if="$store.state.currentPostId"></post-full>
     </transition>
       <edit-post v-if="$store.state.onEditPost._id"></edit-post>
 

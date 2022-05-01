@@ -2,22 +2,27 @@
   <div id="postfull" class="w-2/5 bg-white h-full pt-12 px-16 overflow-scroll">
     <div class="flex justify-between mb-5">
       <div class="flex justify-center items-center rounded-full bg-grey h-8 text-white px-6">
-        {{ new Date($store.state.currentPost.createdAt).toLocaleDateString() }}
+        {{ new Date($store.getters.currentPost.createdAt).toLocaleDateString() }}
       </div>
       <div class="flex justify-center items-center rounded-full bg-blue h-8 font-bold text-white px-6 hover:cursor-pointer"
-           v-if="$store.state.currentPost.user._id !== $store.state.isLogged._id"
-           @click="likePost($store.state.currentPost._id)"
-      >Like</div>
+           v-if="$store.getters.currentPost.user._id !== $store.state.isLogged._id"
+           @click="likePost($store.getters.currentPost._id)"
+      >
+        {{ $store.getters.currentPost.likes.includes($store.state.isLogged._id) ? "Dislike" : "Like" }}
+      </div>
     </div>
-    <h1 class="font-bold text-xl">{{ $store.state.currentPost.title }}</h1>
-    <p class="text-sm text-blue my-1">par {{ $store.state.currentPost.user.fullName }}</p>
-    <p class="text-sm mb-3">{{ $store.state.currentPost.likes.length }} likes</p>
+    <h1 class="font-bold text-xl">{{ $store.getters.currentPost.title }}</h1>
+    <p class="text-sm text-blue my-1">par {{ $store.getters.currentPost.user.fullName }}</p>
+    <p class="text-sm mb-3">
+      {{ $store.getters.currentPost.likes.length }}
+      {{$store.getters.currentPost.likes.length > 1 ? "likes": "like" }}
+    </p>
     <div class="line"></div>
-    <img v-if="$store.state.currentPost.image"
+    <img v-if="$store.getters.currentPost.image"
          class="my-10 w-full"
-         :src="require(`@/assets/uploads/${$store.state.currentPost.image}`)"
+         :src="require(`@/assets/uploads/${$store.getters.currentPost.image}`)"
          alt="Post image">
-    <p class="text-sm">{{ $store.state.currentPost.description }}</p>
+    <p class="text-sm">{{ $store.getters.currentPost.description }}</p>
     <div class="line my-8"></div>
     <post-comments></post-comments>
   </div>

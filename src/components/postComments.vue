@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-3/4 text-lightgrey">
-    <div class="flex flex-col mr-5 items-center" v-for="comment in $store.state.currentPost.comments" :key="comment._id">
+    <div class="flex flex-col mr-5 items-center" v-for="comment in $store.getters.currentPost.comments" :key="comment._id">
       <img class="h-10 w-20 mb-1.5" src="../assets/usermini.png" alt="">
       <p class="date font-light">12:32</p>
       <p class="time font-light italic">21/04/22</p>

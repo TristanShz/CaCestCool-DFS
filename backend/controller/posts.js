@@ -54,3 +54,12 @@ exports.modify = async (req, res) => {
         res.status(400).send(e);
     }
 }
+
+exports.like = async (req, res) => {
+    try{
+        const postLiked = await postService.like(req.params.id, req.body.id);
+        res.status(200).send(postLiked);
+    }catch(e){
+        res.status(400).send(e);
+    }
+}

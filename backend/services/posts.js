@@ -26,3 +26,14 @@ exports.delete = (id) => {
 exports.modify = (id, post) => {
     return Post.updateOne({_id: id}, post)
 }
+exports.like = async (postId, userId) => {
+    let post = await Post.findOne({_id: postId}).exec();
+    if(post.likes.includes(userId)){
+        const indexToDelete = post.likes.indexOf(userId);
+        post.likes.splice(indexToDelete,1);
+    }else{
+        post.likes.push(userId);
+    }
+    post.markModified('likes');
+    return post.save();
+}

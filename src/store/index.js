@@ -33,7 +33,7 @@ const store = new Vuex.Store({
                     "Authorization": "Bearer " + localStorage.getItem('token')
                 }
             }
-        }
+        },
     },
     actions: {
         logUser(context, user){
@@ -70,7 +70,7 @@ const store = new Vuex.Store({
             localStorage.clear();
             context.commit("logUser", {});
             location.href= '/login';
-        }
+        },
     }
 
 })

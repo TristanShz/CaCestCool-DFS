@@ -24,7 +24,7 @@
             <span class="flex" v-else>{{ post.likes.length }}<img class="ml-1" src="../assets/thumb.svg"></span>
           </div>
         </div>
-        <div id="arrowRight" v-if="$store.state.currentPost === post || $store.state.onEditPost === post"></div>
+        <div id="arrowRight" v-if="$store.getters.currentPost === post || $store.state.onEditPost === post"></div>
       </div>
       <img src="../assets/edit.svg"
            class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"

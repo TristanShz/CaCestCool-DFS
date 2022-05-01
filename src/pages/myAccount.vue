@@ -14,16 +14,14 @@
       </form>
       <p class="text-red underline hover:cursor-pointer" @click="$store.dispatch('disconnect')" >Se déconnecter</p>
     </div>
-    <post-preview></post-preview>
   </div>
 </template>
 
 <script>
 import SideMenu from "@/components/sideMenu"
-import PostPreview from "@/components/postPreview";
 export default {
   name: "MyAccount",
-  components: {SideMenu, PostPreview}
+  components: {SideMenu}
 }
 </script>
 

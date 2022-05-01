@@ -14,14 +14,12 @@ const commentsSchema = new Schema(
                 minLength: 1,
                 maxLength: 280,
                 required: true,
-            }
-        },
-        {
-            timestamps: {
-                createdAt: 'created_at',
-                updatedAt: 'updated_at',
             },
-        }
+            createdAt: {
+                type: Date,
+                default: Date.now(),
+            },
+        },
 )
 const postSchema = new Schema(
     {

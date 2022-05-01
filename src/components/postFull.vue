@@ -8,7 +8,7 @@
            v-if="$store.getters.currentPost.user._id !== $store.state.isLogged._id"
            @click="likePost($store.getters.currentPost._id)"
       >
-        {{ $store.getters.currentPost.likes.includes($store.state.isLogged._id) ? "Dislike" : "Like" }}
+        {{ $store.getters.currentPost.likes.includes($store.state.isLogged._id) ? "Unlike" : "Like" }}
       </div>
     </div>
     <h1 class="font-bold text-xl">{{ $store.getters.currentPost.title }}</h1>
@@ -22,7 +22,7 @@
          class="my-10 w-full"
          :src="require(`@/assets/uploads/${$store.getters.currentPost.image}`)"
          alt="Post image">
-    <p class="text-sm">{{ $store.getters.currentPost.description }}</p>
+    <pre class="text-sm w-full overflow-ellipsis whitespace-pre-wrap">{{ $store.getters.currentPost.description }}</pre>
     <div class="line my-8"></div>
     <post-comments></post-comments>
   </div>

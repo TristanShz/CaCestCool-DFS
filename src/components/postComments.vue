@@ -1,21 +1,88 @@
 <template>
-  <div class="flex w-3/4 text-lightgrey">
-    <div class="flex flex-col mr-5 items-center" v-for="comment in $store.getters.currentPost.comments" :key="comment._id">
-      <img class="h-10 w-20 mb-1.5" src="../assets/usermini.png" alt="">
-      <p class="date font-light">12:32</p>
-      <p class="time font-light italic">21/04/22</p>
+  <div class="flex w-full text-lightgrey flex-col">
+    <div class="flex w-full mr-5 items-center mb-8 relative"
+         v-for="comment in $store.getters.currentPost.comments"
+         :key="comment._id"
+         v-bind:class="{'justify-end': comment.user._id === $store.state.isLogged._id}"
+    >
+      <div class="flex flex-col items-center mr-6">
+        <img v-if="comment.user.image" src="../assets/userExample.jpg" alt="" class="w-10 h-10 rounded-full mb-1.5">
+        <div v-else
+             class="userImageDefault w-10 h-10 rounded-full text-2xl"
+             v-bind:style="{ background: comment.user.defaultColor}"
+        >
+          {{comment.user.fullName.charAt(0)}}
+        </div>
+        <p class="date mb-0.5">{{ new Date(comment.createdAt).toLocaleTimeString() }}</p>
+        <p class="time italic">{{ new Date(comment.createdAt).toLocaleDateString() }}</p>
+      </div>
 
-      <div class="comment px-6 py-4 bg-commentgrey">
-        <h1 class="text-xs font-bold pb-4">{{ comment.user.fullName }}</h1>
+      <div class="comment px-6 py-4 w-2/3"
+           v-bind:class="[comment.user._id === $store.state.isLogged._id ? 'bg-blue text-white' : 'bg-commentgrey' ]"
+      >
+        <h1 class="text-xs font-bold mb-2">{{ comment.user.fullName }}</h1>
         <p class="text-xs">{{ comment.content }}</p>
       </div>
+      <div v-if="comment.user._id === $store.state.isLogged._id"
+           class="absolute right-1 hover:scale-125 hover:cursor-pointer opacity-70 hover:opacity-100"
+           @click="deleteComment($store.getters.currentPost._id, comment._id)"
+      >
+        <img src="../assets/delete.svg" alt="">
+      </div>
+    </div>
+    <div class="w-full">
+      <form class="w-full flex flex-col" @submit.prevent="addComment($store.getters.currentPost._id)">
+        <textarea placeholder="Ajouter un commentaire..."
+                  class="w-full resize-none mb-4 bg-commentgrey rounded-3xl p-2 focus:outline-blue"
+                  rows="4"
+                  maxlength="280"
+                  v-model="content"
+        ></textarea>
+        <button class="flex text-blue font-medium self-end active:scale-110 mb-10">
+          envoyer
+          <div class="rounded-full w-6 h-6 bg-blue flex justify-center items-center ml-1">
+            <div class="w-2 h-2 border-t-2 border-r-2 border-white rotate-45 -translate-x-0.5"></div>
+          </div>
+        </button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: "PostComments"
+  name: "PostComments",
+  data(){
+    return {
+      content:"",
+    }
+  },
+  methods: {
+    addComment(id){
+      const body = {
+        user: this.$store.state.isLogged._id,
+        content: this.content,
+      };
+      axios.post(`http://localhost:3000/post/${id}`, body, this.$store.state.header)
+          .then(() => {
+            this.$store.dispatch("setPosts");
+            this.content = "";
+          })
+          .catch(error => {
+            console.log(error);
+          })
+    },
+    deleteComment(postId, commentId){
+      axios.delete(`http://localhost:3000/post/${postId}/${commentId}`, this.$store.state.header)
+          .then(() => {
+            this.$store.dispatch("setPosts");
+          })
+          .catch(error => {
+            console.log(error);
+          })
+    }
+  }
 }
 </script>
 

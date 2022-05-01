@@ -5,11 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        header: {
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem('token')
-            }
-        },
+        header: {},
         isLogged : {},
         posts: [],
         token: localStorage.getItem('token'),
@@ -24,10 +20,18 @@ const store = new Vuex.Store({
         },
         setCurrentPost(state,post){
             state.currentPost = state.currentPost === post ? {} : post;
+        },
+        setHeader(state){
+            state.header = {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem('token')
+                }
+            }
         }
     },
     actions: {
         logUser(context, user){
+            context.commit("setHeader");
             context.commit("logUser", user);
         },
         async checkToken(context, token){
@@ -35,6 +39,7 @@ const store = new Vuex.Store({
                 const userValid = await axios.post("http://localhost:3000/users/token",{token: token});
                 if(userValid.data){
                     context.commit("logUser", userValid.data);
+                    context.commit("setHeader");
                     return 1;
                 }else{
                     return null;

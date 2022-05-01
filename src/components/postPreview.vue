@@ -11,11 +11,11 @@
         <img v-if="post.user.image" src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full  self-center">
         <div v-else
              class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
-             v-bind:style="{ background: $store.state.isLogged.defaultColor}"
-        >{{$store.state.isLogged.fullName.charAt(0)}}</div>
+             v-bind:style="{ background: post.user.defaultColor}"
+        >{{post.user.fullName.charAt(0)}}</div>
         <div class="flex flex-col mt-3 w-3/4">
           <h2 class="font-bold">{{ post.title }}</h2>
-          <p class="leading-4 mt-1 text-lightgrey">{{ post.description }}</p>
+          <p class="leading-4 mt-1 text-lightgrey">{{ post.description.slice(0, 120) + "..." }}</p>
           <div class="flex justify-between my-4 text-lightgrey font-light">
             <span class="flex"><img class="mr-2" src="../assets/comment.svg" alt="">{{ post.comments.length }} comments</span>
             <span class="flex">{{ post.likes.length }}<img class="ml-2" src="../assets/thumb.svg"></span>
@@ -24,11 +24,11 @@
         <div id="arrowRight" v-if="$store.state.currentPost === post"></div>
       </div>
       <img src="../assets/edit.svg"
-           class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110"
+           class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
            v-if="post.user._id === $store.state.isLogged._id"
       >
       <img src="../assets/delete.svg"
-           class="w-8 h-8 absolute top-1 right-5 hover:cursor-pointer hover:scale-110"
+           class="w-8 h-8 absolute top-1 right-5 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
            v-if="post.user._id === $store.state.isLogged._id"
            @click="deletePost(post._id)"
       >
@@ -44,7 +44,7 @@ import AddPost from "@/components/addPost";
 export default {
   name: "PostPreview",
   components: {AddPost},
-  created() {
+  beforeCreate() {
     this.$store.dispatch("setPosts");
   },
   methods: {

@@ -39,7 +39,7 @@ const postSchema = new Schema(
         description: {
             type: String,
             minLength: 1,
-            maxLength: 280,
+            maxLength: 1500,
             required: true,
         },
         image: {

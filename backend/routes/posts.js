@@ -8,6 +8,7 @@ const router = express.Router();
 //route GET /post
 router.get("/", PostsController.getList);
 router.get("/:id", verifyJwtToken, PostsController.getOne);
+router.get("/user/:userId", verifyJwtToken, PostsController.getListByUser);
 //route POST /post
 router.post("/",verifyJwtToken, upload.single("image"), PostsController.add);
 router.post("/:id", verifyJwtToken, CommentsController.add)

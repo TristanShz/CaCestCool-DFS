@@ -19,7 +19,6 @@ import EditPost from "@/components/editPost";
 export default {
   name: "homePage",
   components: {EditPost, SideMenu,PostPreview, PostFull},
-
 }
 </script>
 

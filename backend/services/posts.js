@@ -9,6 +9,9 @@ exports.add = (postBody) => {
 exports.getList = () => {
     return Post.find({}).populate("user").populate("comments.user");
 }
+exports.getListByUser = (userId) => {
+    return Post.find({user: userId}).populate("user").populate("comments.user");
+}
 exports.getOne = (id) => {
     return Post.findOne({_id: id}).populate("user");
 }

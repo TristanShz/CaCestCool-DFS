@@ -3,16 +3,19 @@
     <h1 class="text-titlegrey text-4xl mt-32 mb-5 self-start">Mon Mur</h1>
     <add-post></add-post>
     <div id="line" class="mt-5"></div>
-    <div class="postpreview flex bg-white h-32 my-5 w-full hover:cursor-pointer hover:scale-105"
+    <div class="postpreview flex bg-white h-auto my-5 w-full hover:cursor-pointer hover:scale-105"
          v-for="post in $store.state.posts"
          :key="post._id"
     >
-      <div class="flex h-32 pl-8 w-full" @click="$store.dispatch('setCurrentPost',post._id)">
+      <div class="flex pl-8 w-full" @click="$store.dispatch('setCurrentPost',post._id)">
         <img v-if="post.user.image" src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full  self-center">
         <div v-else
              class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
              v-bind:style="{ background: post.user.defaultColor}"
-        >{{post.user.fullName.charAt(0)}}</div>
+        >
+          <p class="-translate-y-0.5">{{post.user.fullName.charAt(0)}}</p>
+        </div>
+
         <div class="flex flex-col mt-3 w-3/4">
           <h2 class="font-bold">{{ post.title }}</h2>
           <p class="leading-4 mt-1 text-lightgrey">{{ post.description.slice(0, 110) + "..." }}</p>
@@ -48,8 +51,13 @@ import AddPost from "@/components/addPost";
 export default {
   name: "PostPreview",
   components: {AddPost},
-  beforeCreate() {
-    this.$store.dispatch("setPosts");
+  created(){
+    if(this.$route.path === "/home") this.$store.dispatch("setPosts");
+    if(this.$route.path === "/messages") this.$store.dispatch("setUserLoggedPosts");
+  },
+  updated(){
+    if(this.$route.path === "/home") this.$store.dispatch("setPosts");
+    if(this.$route.path === "/messages") this.$store.dispatch("setUserLoggedPosts");
   },
   methods: {
     deletePost(id){

@@ -14,7 +14,7 @@
 
     <ul class="text-xl ml-10">
       <router-link to="/home"><li class="font-bold my-6">Mon mur</li></router-link>
-      <li class="my-6">Mes messages</li>
+      <router-link to="/messages"><li class="my-6">Mes messages</li></router-link>
       <router-link to="/account"><li class="my-6" >Mon compte</li></router-link>
     </ul>
 

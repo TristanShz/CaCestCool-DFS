@@ -20,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
       store.dispatch("checkToken", localStorage.getItem('token'))
           .then(response => {
             if(response){
-              if(to.path !== "/home") next("/home");
+              if(to.path === "/" || to.path ==="/login") next("/home");
               else next();
             }else{
               if(to.path !== "/login" && to.path !== "/") next("/login");

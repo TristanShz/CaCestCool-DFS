@@ -33,11 +33,11 @@
     </div>
     <p class="text-red self-end mb-4">{{errorMessage}}</p>
     <div class="flex justify-between self-end w-5/6 items-center">
-      <label for="file" class="hover:cursor-pointer">
+      <label for="file" class="hover:cursor-pointer hover:scale-125 active:scale-100">
         <img src="../assets/fileIcon.png" alt="" class="w-6 h-6">
       </label>
       <input type="file" name="image" id="file" accept="image/*" @change="fileInput" >
-      <button class="bg-blue rounded-full w-32 h-8 text-white font-bold"
+      <button class="bg-blue rounded-full w-32 h-8 text-white font-bold active:bg-darkblue"
       >Envoyer</button>
     </div>
   </form>

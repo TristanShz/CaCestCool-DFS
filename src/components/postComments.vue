@@ -13,8 +13,8 @@
         >
           {{comment.user.fullName.charAt(0)}}
         </div>
-        <p class="date mb-0.5">{{ new Date(comment.createdAt).toLocaleTimeString() }}</p>
-        <p class="time italic">{{ new Date(comment.createdAt).toLocaleDateString() }}</p>
+        <p class="date mb-0.5">{{ new Date(comment.created_at).toLocaleTimeString() }}</p>
+        <p class="time italic">{{ new Date(comment.created_at).toLocaleDateString() }}</p>
       </div>
 
       <div class="comment px-6 py-4 w-2/3"
@@ -23,11 +23,26 @@
         <h1 class="text-xs font-bold mb-2">{{ comment.user.fullName }}</h1>
         <p class="text-xs">{{ comment.content }}</p>
       </div>
-      <div v-if="comment.user._id === $store.state.isLogged._id"
-           class="absolute right-1 hover:scale-125 hover:cursor-pointer opacity-70 hover:opacity-100"
-           @click="deleteComment($store.getters.currentPost._id, comment._id)"
+<!--      <div v-if="comment.user._id === $store.state.isLogged._id"-->
+<!--           class="absolute right-1 hover:scale-125 hover:cursor-pointer opacity-70 hover:opacity-100"-->
+<!--           @click="deleteComment($store.getters.currentPost._id, comment._id)"-->
+<!--      >-->
+<!--        <img src="../assets/delete.svg" alt="">-->
+<!--      </div>-->
+      <div class="absolute right-1 hover:scale-125 hover:cursor-pointer opacity-70 hover:opacity-100 mr-2 p-2"
+           v-if="comment.user._id === $store.state.isLogged._id"
+           @click="setOptionsOnComment(comment._id)"
       >
-        <img src="../assets/delete.svg" alt="">
+        <div class="w-1 h-1 mb-0.5 rounded-full bg-white"></div>
+        <div class="w-1 h-1 mb-0.5 rounded-full bg-white"></div>
+        <div class="w-1 h-1 rounded-full bg-white"></div>
+      </div>
+      <div class="deleteMenu w-32 h-12 bg-white absolute right-7 top-8 rounded-xl flex items-center"
+           v-if="currentIdOptions === comment._id && optionOnComment"
+      >
+        <p class="text-red text-xs ml-2 hover:cursor-pointer hover:scale-110 active:scale-100"
+           @click="deleteComment($store.getters.currentPost._id, comment._id)"
+        >Supprimer</p>
       </div>
     </div>
     <div class="w-full">
@@ -56,6 +71,8 @@ export default {
   data(){
     return {
       content:"",
+      optionOnComment: false,
+      currentIdOptions: "",
     }
   },
   methods: {
@@ -81,6 +98,10 @@ export default {
           .catch(error => {
             console.log(error);
           })
+    },
+    setOptionsOnComment(commentId){
+      this.currentIdOptions = commentId;
+      this.optionOnComment = !this.optionOnComment;
     }
   }
 }
@@ -97,5 +118,8 @@ export default {
   }
   .comment{
     border-radius: 30px;
+  }
+  .deleteMenu{
+    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
   }
 </style>

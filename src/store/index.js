@@ -65,6 +65,13 @@ const store = new Vuex.Store({
                     context.commit("setPosts", response.data);
                 })
         },
+        setUserLoggedPosts(context){
+            console.log("hey");
+          axios.get(`http://localhost:3000/post/user/${context.state.isLogged._id}`, context.state.header)
+              .then(response => {
+                  context.commit("setPosts", response.data);
+              })
+        },
         setCurrentPost(context, postId){
             context.commit("setCurrentPost", postId);
         },

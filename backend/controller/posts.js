@@ -27,6 +27,14 @@ exports.getList = async (req, res) => {
     }
 }
 
+exports.getListByUser = async (req, res) => {
+    try{
+        const postList = await postService.getListByUser(req.params.userId);
+        res.status(200).send(postList);
+    }catch(e){
+        res.status(400).send(e);
+    }
+}
 exports.getOne = async (req, res) => {
     try{
         const postOwner = await postService.getOne(req.params.id);

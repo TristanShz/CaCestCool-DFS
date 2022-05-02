@@ -18,5 +18,9 @@ export default [
     {
         path:"/account",
         component: MyAccount
+    },
+    {
+        path: "/messages",
+        component: HomePage
     }
 ]

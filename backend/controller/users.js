@@ -106,8 +106,10 @@ exports.modifyPassword = async (req, res) => {
             const newPassword = await userService.hashPassword(req.body.newPassword);
             const passwordModified = await userService.modifyPassword(req.params.userId, newPassword);
             res.status(200).send(passwordModified);
+        } else {
+            res.status(400).json({message: "Ancien mot de passe incorrect."})
         }
     } catch (e) {
-        res.status(400).send(e);
+        res.status(400).json(e)
     }
 }

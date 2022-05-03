@@ -8,12 +8,13 @@
          :key="post._id"
     >
       <div class="flex pl-8 w-full" @click="$store.dispatch('setCurrentPost',post._id)">
-        <img v-if="post.user.image" src="../assets/userExample.jpg" alt="" class="w-16 h-16 rounded-full  self-center">
+        <img v-if="post.user.profilPicture" :src="require(`@/assets/userImages/${$store.state.isLogged.profilPicture}`)"
+             alt="" class="w-16 h-16 rounded-full self-center mr-5">
         <div v-else
              class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
              v-bind:style="{ background: post.user.defaultColor}"
         >
-          <p class="-translate-y-0.5">{{post.user.fullName.charAt(0)}}</p>
+          <p class="-translate-y-0.5">{{ post.user.fullName.charAt(0) }}</p>
         </div>
 
         <div class="flex flex-col mt-3 w-3/4">
@@ -51,20 +52,12 @@ import AddPost from "@/components/addPost";
 export default {
   name: "PostPreview",
   components: {AddPost},
-  created(){
-    if(this.$route.path === "/home") this.$store.dispatch("setPosts");
-    if(this.$route.path === "/messages") this.$store.dispatch("setUserLoggedPosts");
-  },
-  updated(){
-    if(this.$route.path === "/home") this.$store.dispatch("setPosts");
-    if(this.$route.path === "/messages") this.$store.dispatch("setUserLoggedPosts");
-  },
   methods: {
-    deletePost(id){
+    deletePost(id) {
       axios.delete(`http://localhost:3000/post/${id}`, this.$store.state.header)
           .then(() => {
             this.$store.dispatch("setPosts");
-            if(this.$store.state.currentPost._id === id){
+            if (this.$store.state.currentPost._id === id) {
               this.$store.dispatch("setCurrentPost", {});
             }
           })
@@ -77,30 +70,34 @@ export default {
 </script>
 
 <style scoped>
-  .postpreview{
-    border-radius: 30px;
-    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
-  }
-  #wallContent h1{
-    font-family: 'Timmana', sans-serif;
-  }
-  #wallContent::-webkit-scrollbar{
-    display: none;
-  }
-  #arrowRight{
-    width: 16px;
-    height: 16px;
-    border-bottom: 2px solid black;
-    border-right: 2px solid black;
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    transform: rotate(-45deg);
-  }
-  #line{
-    width: 100%;
-    height: 0.2px;
-    background-color: lightgray;
-  }
+.postpreview {
+  border-radius: 30px;
+  filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+#wallContent h1 {
+  font-family: 'Timmana', sans-serif;
+}
+
+#wallContent::-webkit-scrollbar {
+  display: none;
+}
+
+#arrowRight {
+  width: 16px;
+  height: 16px;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: rotate(-45deg);
+}
+
+#line {
+  width: 100%;
+  height: 0.2px;
+  background-color: lightgray;
+}
 </style>

@@ -16,11 +16,11 @@ exports.getOne = (id) => {
     return Post.findOne({_id: id}).populate("user");
 }
 exports.delete = (id) => {
-    const uploadsFile = fs.readdirSync(path.join(__dirname, "../../src/assets/uploads"));
+    const uploadsFile = fs.readdirSync(path.join(__dirname, "../../src/assets/postImages"));
     Post.findOne({_id: id }, (err, post) => {
         if(uploadsFile.includes(post.image)) {
             fs.unlinkSync(
-                path.join(__dirname, "../../src/assets/uploads/", post.image)
+                path.join(__dirname, "../../src/assets/postImages/", post.image)
             );
         }
     })

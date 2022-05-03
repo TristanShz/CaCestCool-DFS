@@ -2,7 +2,7 @@ const express = require('express')
 const PostsController = require("../controller/posts.js")
 const CommentsController = require("../controller/comments")
 const verifyJwtToken = require("../middlewares/verifyJwtToken")
-const upload = require("../middlewares/uploadFile")
+const upload = require("../middlewares/postImagesUpload")
 const router = express.Router();
 
 //route GET /post

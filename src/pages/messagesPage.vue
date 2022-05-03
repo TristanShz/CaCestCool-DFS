@@ -17,10 +17,10 @@ import PostFull from "../components/postFull"
 import EditPost from "@/components/editPost";
 
 export default {
-  name: "homePage",
+  name: "messagesPage",
   components: {EditPost, SideMenu, PostPreview, PostFull},
   created() {
-    this.$store.dispatch("setPosts");
+    this.$store.dispatch("setUserLoggedPosts");
   }
 }
 </script>

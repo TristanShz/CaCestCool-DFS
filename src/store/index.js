@@ -1,38 +1,39 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
         header: {},
-        isLogged : {},
+        isLogged: {},
         posts: [],
         token: localStorage.getItem('token'),
         currentPostId: "",
         onEditPost: {},
     },
     getters: {
-        currentPost(state){
+        currentPost(state) {
             return state.posts.find(post => post._id === state.currentPostId);
         }
     },
     mutations: {
-        logUser(state, user){
+        logUser(state, user) {
             state.isLogged = user;
         },
-        setPosts(state, postsList){
+        setPosts(state, postsList) {
             state.posts = postsList.reverse();
         },
-        setCurrentPost(state,postId){
-            if(state.onEditPost._id) state.onEditPost = {};
+        setCurrentPost(state, postId) {
+            if (state.onEditPost._id) state.onEditPost = {};
             state.currentPostId = state.currentPostId === postId ? "" : postId;
         },
-        setOnEditPost(state,post){
-            if(state.currentPost._id) state.currentPost = {};
-            state.onEditPost  = state.onEditPost === post ? {} : post;
+        setOnEditPost(state, post) {
+            if (state.currentPost._id) state.currentPost = {};
+            state.onEditPost = state.onEditPost === post ? {} : post;
         },
-        setHeader(state){
+        setHeader(state) {
             state.header = {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem('token')
@@ -41,47 +42,47 @@ const store = new Vuex.Store({
         },
     },
     actions: {
-        logUser(context, user){
+        logUser(context, user) {
             context.commit("setHeader");
             context.commit("logUser", user);
         },
-        async checkToken(context, token){
-            try{
-                const userValid = await axios.post("http://localhost:3000/users/token",{token: token});
-                if(userValid.data){
+        async checkToken(context) {
+            try {
+                const userValid = await axios.post("http://localhost:3000/users/token", {token: localStorage.getItem('token')});
+                if (userValid.data) {
                     context.commit("logUser", userValid.data);
                     context.commit("setHeader");
                     return 1;
-                }else{
+                } else {
                     return null;
                 }
-            }catch(e){
+            } catch (e) {
                 console.log(e);
             }
         },
-        setPosts(context){
-            axios.get("http://localhost:3000/post",context.state.header)
+        setPosts(context) {
+            axios.get("http://localhost:3000/post", context.state.header)
                 .then(response => {
                     context.commit("setPosts", response.data);
                 })
         },
-        setUserLoggedPosts(context){
+        setUserLoggedPosts(context) {
             console.log("hey");
-          axios.get(`http://localhost:3000/post/user/${context.state.isLogged._id}`, context.state.header)
-              .then(response => {
-                  context.commit("setPosts", response.data);
-              })
+            axios.get(`http://localhost:3000/post/user/${context.state.isLogged._id}`, context.state.header)
+                .then(response => {
+                    context.commit("setPosts", response.data);
+                })
         },
-        setCurrentPost(context, postId){
+        setCurrentPost(context, postId) {
             context.commit("setCurrentPost", postId);
         },
-        setOnEditPost(context, post){
+        setOnEditPost(context, post) {
             context.commit("setOnEditPost", post);
         },
-        disconnect(context){
+        disconnect(context) {
             localStorage.clear();
             context.commit("logUser", {});
-            location.href= '/login';
+            location.href = '/login';
         },
     }
 

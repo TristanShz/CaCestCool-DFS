@@ -1,5 +1,6 @@
 const express = require('express')
 const UsersController = require("../controller/users.js")
+const upload = require('../middlewares/userImagesUpload')
 const router = express.Router();
 
 //route GET /users
@@ -13,6 +14,6 @@ router.post("/token", UsersController.checkToken);
 router.delete("/:id", UsersController.delete);
 
 //route UPDATE /users/id
-router.put("/:id", UsersController.modify);
+router.put("/:id", upload.single("image"), UsersController.modify);
 
 module.exports = router;

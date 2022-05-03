@@ -97,3 +97,17 @@ exports.checkToken = async (req, res) => {
         res.status(200).send(null);
     }
 }
+
+exports.modifyPassword = async (req, res) => {
+    try {
+        const hashPassword = await userService.getPassword(req.params.userId);
+        const passwordMatch = await userService.comparePasswords(req.body.password, hashPassword);
+        if (passwordMatch) {
+            const newPassword = await userService.hashPassword(req.body.newPassword);
+            const passwordModified = await userService.modifyPassword(req.params.userId, newPassword);
+            res.status(200).send(passwordModified);
+        }
+    } catch (e) {
+        res.status(400).send(e);
+    }
+}

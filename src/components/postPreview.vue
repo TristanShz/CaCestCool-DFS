@@ -8,8 +8,8 @@
          :key="post._id"
     >
       <div class="flex pl-8 w-full" @click="$store.dispatch('setCurrentPost',post._id)">
-        <img v-if="post.user.profilPicture" :src="require(`@/assets/userImages/${$store.state.isLogged.profilPicture}`)"
-             alt="" class="w-16 h-16 rounded-full self-center mr-5">
+        <img v-if="post.user.profilPicture" :src="require(`@/assets/userImages/${post.user.profilPicture}`)"
+             alt="" class="w-16 h-16 rounded-full object-cover self-center mr-5">
         <div v-else
              class="userImageDefault w-16 h-16 rounded-full self-center text-4xl mr-5"
              v-bind:style="{ background: post.user.defaultColor}"

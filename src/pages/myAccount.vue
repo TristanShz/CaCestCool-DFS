@@ -5,15 +5,17 @@
       <h1 class="text-titlegrey text-4xl mt-32 mb-10 self-start">Mon compte</h1>
       <form class="flex flex-col" @submit.prevent="updateUser($store.state.isLogged._id)">
         <input type="text" name="fullName"
-               class="w-full h-12 mb-8 pl-5 rounded-full" v-model="fullName" @input="checkFullName" maxlength="30">
-        <span class="text-red text-sm font-light mb-8 self-start"
+               class="w-full h-12 mb-4 pl-5 rounded-full outline-blue" v-model="fullName" @input="checkFullName"
+               maxlength="30"
+               v-bind:class="{'focus:outline-red border-red border-2': fullNameError}">
+        <span class="text-red text-sm font-light mb-4 self-start"
         >{{ fullNameError }}</span>
-        <input type="email" name="email" class="w-full h-12 mb-8 pl-5 rounded-full"
-               v-model="email" @input="checkEmail">
-        <span class="text-red text-sm font-light mb-8 self-start"
+        <input type="email" name="email" class="w-full h-12 mb-4 pl-5 rounded-full"
+               v-model="email" @input="checkEmail" v-bind:class="{'focus:outline-red border-red border-2': emailError}">
+        <span class="text-red text-sm font-light mb-4 self-start"
         >{{ emailError }}</span>
         <input type="text" value="*************" class="w-full h-12 mb-2 pl-5 rounded-full" readonly>
-        <p class="underline font-light mb-8">Modifier mon mot de passe</p>
+        <router-link to="/password"><p class="underline font-light mb-8">Modifier mon mot de passe</p></router-link>
         <div class="flex w-full">
           <p class="mr-4 font-medium">Photo de profil : </p>
           <input type="file" id="image" name="image" placeholder="Modifier ma photo de profil" accept="image/*"
@@ -67,6 +69,8 @@ export default {
           this.fullNameError = "Nom trop court (3 caractères min.)";
         } else if (this.fullName.length > 30) {
           this.fullNameError = "Nom trop long (30 caractères max.)"
+        } else if (!/^[a-zA-Z\s]*$/.test(this.fullName)) {
+          this.fullNameError = "Ne peut contenir que des caractères (A-Z)";
         } else {
           this.fullNameError = "";
           this.fullNameValid = true;

@@ -3,6 +3,7 @@ import LoginPage from "../pages/loginPage"
 import HomePage from "../pages/homePage"
 import MyAccount from "@/pages/myAccount";
 import MessagesPage from "@/pages/messagesPage";
+import ModifyPassword from "@/pages/modifyPassword";
 
 export default [
     {
@@ -24,5 +25,9 @@ export default [
     {
         path: "/messages",
         component: MessagesPage
+    },
+    {
+        path: "/password",
+        component: ModifyPassword
     }
 ]

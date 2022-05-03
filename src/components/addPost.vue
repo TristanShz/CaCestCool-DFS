@@ -3,7 +3,7 @@
     <div class="flex w-full">
       <img v-if="$store.state.isLogged.profilPicture"
            :src="require(`@/assets/userImages/${$store.state.isLogged.profilPicture}`)" alt=""
-           class="w-16 h-16 rounded-full mr-4">
+           class="w-16 h-16 rounded-full mr-4 object-cover">
       <div v-else
            class="userImageDefault w-16 h-16 rounded-full mr-4 text-4xl"
            v-bind:style="{ background: $store.state.isLogged.defaultColor}"

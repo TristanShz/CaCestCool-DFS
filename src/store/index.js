@@ -9,7 +9,6 @@ const store = new Vuex.Store({
         header: {},
         isLogged: {},
         posts: [],
-        token: localStorage.getItem('token'),
         currentPostId: "",
         onEditPost: {},
     },
@@ -60,13 +59,13 @@ const store = new Vuex.Store({
                 console.log(e);
             }
         },
-        setPosts(context) {
+        setPosts(context) { //Envoi une requête à l'api pour récupérer tout les posts
             axios.get("http://localhost:3000/post", context.state.header)
                 .then(response => {
                     context.commit("setPosts", response.data);
                 })
         },
-        setUserLoggedPosts(context) {
+        setUserLoggedPosts(context) { //Envoi une requête à l'api pour récupérer tout les posts de l'utilisateur connecté
             console.log("hey");
             axios.get(`http://localhost:3000/post/user/${context.state.isLogged._id}`, context.state.header)
                 .then(response => {

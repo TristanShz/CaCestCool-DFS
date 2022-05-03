@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
 const userSchema = new Schema(
     {
@@ -16,6 +16,7 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
+            minLength: 5,
             select: false,
         },
         profilPicture: {
@@ -33,14 +34,12 @@ const userSchema = new Schema(
                     "#73FA73",
                     "#B0ACFC"
                 ];
-                return colorList[Math.floor(Math.random()*6)];
+                return colorList[Math.floor(Math.random() * 6)];
             }
         }
     },
     {
-        timestamps: { createdAt: 'created_at'}
+        timestamps: {createdAt: 'created_at'}
     })
-userSchema.methods.getPassword = function(){
-    return "hello";
-}
+
 module.exports = mongoose.model("User", userSchema)

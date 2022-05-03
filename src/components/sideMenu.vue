@@ -3,7 +3,7 @@
     <img src="../assets/logo.png" class="self-center w-28 mt-14 mb-10">
     <img v-if="$store.state.isLogged.profilPicture"
          :src="require(`@/assets/userImages/${$store.state.isLogged.profilPicture}`)"
-         class="bg-white w-52 h-52 rounded-full mb-8 self-center border-4 border-white">
+         class="bg-white w-52 h-52 object-cover rounded-full mb-8 self-center border-4 border-white">
     <div v-else
          class="userImageDefault w-52 h-52 rounded-full mb-8 self-center border-4 border-white text-9xl"
          v-bind:style="{ background: $store.state.isLogged.defaultColor}"
@@ -22,7 +22,9 @@
         <li class="my-6" v-bind:class="{'font-bold': $route.path==='/messages'}">Mes messages</li>
       </router-link>
       <router-link to="/account">
-        <li class="my-6" v-bind:class="{'font-bold': $route.path==='/account'}">Mon compte</li>
+        <li class="my-6" v-bind:class="{'font-bold': $route.path==='/account' || $route.path === '/password'}">Mon
+          compte
+        </li>
       </router-link>
     </ul>
 

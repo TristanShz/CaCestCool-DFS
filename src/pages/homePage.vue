@@ -14,7 +14,7 @@
 import SideMenu from "../components/sideMenu"
 import PostPreview from "../components/postPreview"
 import PostFull from "../components/postFull"
-import EditPost from "@/components/editPost";
+import EditPost from "../components/editPost";
 
 export default {
   name: "homePage",

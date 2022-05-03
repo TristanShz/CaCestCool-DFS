@@ -40,3 +40,7 @@ exports.modify = async (id, user) => {
     }
     return User.updateOne({_id: id}, user);
 }
+
+exports.modifyPassword = async (id, newPassword) => {
+    return User.updateOne({_id: id}, {password: newPassword});
+}

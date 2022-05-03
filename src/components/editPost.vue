@@ -15,7 +15,7 @@
       <img v-if="$store.state.onEditPost.image && baseImage"
            id="baseImage"
            class="mb-10 w-full z-0"
-           :src="require(`@/assets/uploads/${$store.state.onEditPost.image}`)"
+           :src="require(`@/assets/postImages/${$store.state.onEditPost.image}`)"
            alt="Post image"
       >
     </div>
@@ -32,7 +32,8 @@
       </label>
       <input type="file" name="image" id="image" accept="image/*" @change="fileInput">
       <button class="bg-blue rounded-full w-32 h-8 text-white font-bold"
-      >Editer</button>
+      >Editer
+      </button>
     </div>
   </div>
 </template>
@@ -41,67 +42,73 @@
 <script>
 export default {
   name: "editPost",
-  data(){
+  data() {
     return {
-      baseImage : this.$store.state.onEditPost.image ? true : false,
+      baseImage: this.$store.state.onEditPost.image ? true : false,
       newImagePreview: false,
     }
   },
   methods: {
-    fileInput(event){
+    fileInput(event) {
       this.newImagePreview = true;
       const imageP = document.querySelector("#baseImage");
       imageP.src = URL.createObjectURL(event.target.files[0]);
       console.log(imageP);
     },
-    removeImage(){
+    removeImage() {
       const inputFile = document.querySelector('#image');
       const baseImage = document.querySelector('#baseImage');
       const imagePreview = document.querySelector('.imagePreview');
-      if(baseImage) baseImage.src = "";
-      inputFile.value="";
-      this.newImagePreview= false;
-      this.baseImage= false;
-      if(imagePreview) imagePreview.src = "";
+      if (baseImage) baseImage.src = "";
+      inputFile.value = "";
+      this.newImagePreview = false;
+      this.baseImage = false;
+      if (imagePreview) imagePreview.src = "";
     },
   }
 }
 </script>
 
 <style scoped>
-  #image{
-    display:none;
-  }
-  .line{
-    height: 0.1px;
-    width: 100%;
-    background-color: lightgray;
-  }
-  #editPost::-webkit-scrollbar {
-    width: 0.8em;
-  }
+#image {
+  display: none;
+}
 
-  #editPost::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
+.line {
+  height: 0.1px;
+  width: 100%;
+  background-color: lightgray;
+}
 
-  #editPost::-webkit-scrollbar-thumb {
-    background-color: dodgerblue;
-    outline: 1px solid #333333;
-  }
-  textarea::-webkit-scrollbar {
-     width: 10px;
-     height: 10px;
-   }
-  textarea::-webkit-scrollbar-track {
-     background: rgba(0,0,0,0.1);
-     box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
-   }
-  textarea::-webkit-scrollbar-thumb {
-     background: linear-gradient(left, rgba(0,0,0,0.1), rgba(0,0,0,0.15));
-     border: 1px solid rgba(0,0,0,0.2);
-   }
-  textarea::-webkit-scrollbar-thumb:hover {
-     background: linear-gradient(left, rgba(0,0,0,0.3), rgba(0,0,0,0.4));
-   }
+#editPost::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+#editPost::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#editPost::-webkit-scrollbar-thumb {
+  background-color: dodgerblue;
+  outline: 1px solid #333333;
+}
+
+textarea::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.15));
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
+}
 </style>

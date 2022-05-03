@@ -11,7 +11,7 @@
              @input="checkFullName()"
       >
       <span class="text-red text-sm font-light mb-8 self-start"
-      >{{fullNameError}}</span>
+      >{{ fullNameError }}</span>
       <input type="email"
              placeholder="Email"
              class="w-full h-12 mb-1 pl-5 rounded-full"
@@ -19,7 +19,7 @@
              @input="checkEmail()"
       >
       <span class="text-red text-sm font-light mb-8 self-start"
-      >{{emailError}}</span>
+      >{{ emailError }}</span>
       <input type="password"
              placeholder="Mot de passe"
              class="w-full h-12 mb-8 pl-5 rounded-full"
@@ -33,10 +33,11 @@
              @input="checkPassword()"
       >
       <span class="text-red text-sm font-light mb-8 self-start"
-      >{{passwordError}}</span>
+      >{{ passwordError }}</span>
       <button type="submit"
               class="w-56 h-12 bg-blue text-white text-base font-bold mb-8 rounded-full"
-      >S'enregistrer</button>
+      >S'enregistrer
+      </button>
       <router-link to="/login"><a class="text-blue">Vous avez déjà un compte ?</a></router-link>
     </form>
   </div>
@@ -55,7 +56,7 @@ export default {
       password: "",
       confirmPassword: "",
       fullNameError: "",
-      emailError:"",
+      emailError: "",
       passwordError: "",
       fullNameValid: false,
       emailValid: false,
@@ -64,8 +65,8 @@ export default {
   },
   methods: {
     register() {
-      if(this.fullNameValid && this.emailValid && this.passwordValid){
-        axios.post("http://localhost:3000/users",{
+      if (this.fullNameValid && this.emailValid && this.passwordValid) {
+        axios.post("http://localhost:3000/users", {
           fullName: this.fullName,
           email: this.email,
           password: this.password,
@@ -77,60 +78,60 @@ export default {
               console.error(e);
               alert("Erreur lors de l'envoi du formulaire");
             })
-      }else{
+      } else {
         return 0;
       }
     },
-    checkFullName(){
+    checkFullName() {
       this.fullNameValid = false;
-      if(this.fullName){
-        if(this.fullName.length < 3){
+      if (this.fullName) {
+        if (this.fullName.length < 3) {
           this.fullNameError = "Nom trop court (3 caractères min.)";
-        }
-        else if(this.fullName.length > 30){
+        } else if (this.fullName.length > 30) {
           this.fullNameError = "Nom trop long (30 caractères max.)"
-        }
-        else{
+        } else if (!/^[a-zA-Z\s]*$/.test(this.fullName)) {
+          this.fullNameError = "Ne peut contenir que des caractères (A-Z)";
+        } else {
           this.fullNameError = "";
           this.fullNameValid = true;
         }
-      }else{
+      } else {
         this.fullNameError = "";
       }
     },
-    checkEmail(){
+    checkEmail() {
       this.emailValid = false;
-      if(this.email){
+      if (this.email) {
         const emailRegex = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$');
-        if(!emailRegex.test(this.email)){
+        if (!emailRegex.test(this.email)) {
           this.emailError = "Votre adresse email est incorrect";
-        }else{
+        } else {
           this.emailError = "";
           this.emailValid = true;
         }
-      }else{
+      } else {
         this.emailError = "";
       }
     },
-    checkPassword(){
+    checkPassword() {
       this.passwordValid = false;
-      if(this.password){
-        if(this.password.length >= 8){
+      if (this.password) {
+        if (this.password.length >= 8) {
           const hasNumber = /\d/;
-          if(!hasNumber.test(this.password)){
+          if (!hasNumber.test(this.password)) {
             this.passwordError = "Votre mot de passe doit contenir au moins un nombre";
-          }else{
-            if(this.confirmPassword && this.password !== this.confirmPassword){
+          } else {
+            if (this.confirmPassword && this.password !== this.confirmPassword) {
               this.passwordError = "Les mots de passes ne correspondent pas"
-            }else{
+            } else {
               this.passwordError = "";
               this.passwordValid = true;
             }
           }
-        }else{
+        } else {
           this.passwordError = "Mot de passe trop court";
         }
-      }else{
+      } else {
         this.passwordError = "";
       }
     },
@@ -139,11 +140,12 @@ export default {
 </script>
 
 <style scoped>
-  form input:focus{
-    outline-color: #0085FF;
-  }
-  form button:active{
-    background-color: #004286;
-    transform: scale(0.95,0.95);
-  }
+form input:focus {
+  outline-color: #0085FF;
+}
+
+form button:active {
+  background-color: #004286;
+  transform: scale(0.95, 0.95);
+}
 </style>

@@ -6,12 +6,14 @@
          v-bind:class="{'justify-end': comment.user._id === $store.state.isLogged._id}"
     >
       <div class="flex flex-col items-center mr-6">
-        <img v-if="comment.user.image" src="../assets/userExample.jpg" alt="" class="w-10 h-10 rounded-full mb-1.5">
+        <img v-if="comment.user.profilPicture"
+             :src="require(`@/assets/userImages/${comment.user.profilPicture}`)"
+             alt="" class="w-10 h-10 rounded-full mb-1.5 object-cover">
         <div v-else
              class="userImageDefault w-10 h-10 rounded-full text-2xl"
              v-bind:style="{ background: comment.user.defaultColor}"
         >
-          {{comment.user.fullName.charAt(0)}}
+          {{ comment.user.fullName.charAt(0) }}
         </div>
         <p class="date mb-0.5">{{ new Date(comment.created_at).toLocaleTimeString() }}</p>
         <p class="time italic">{{ new Date(comment.created_at).toLocaleDateString() }}</p>
@@ -23,12 +25,6 @@
         <h1 class="text-xs font-bold mb-2">{{ comment.user.fullName }}</h1>
         <p class="text-xs">{{ comment.content }}</p>
       </div>
-<!--      <div v-if="comment.user._id === $store.state.isLogged._id"-->
-<!--           class="absolute right-1 hover:scale-125 hover:cursor-pointer opacity-70 hover:opacity-100"-->
-<!--           @click="deleteComment($store.getters.currentPost._id, comment._id)"-->
-<!--      >-->
-<!--        <img src="../assets/delete.svg" alt="">-->
-<!--      </div>-->
       <div class="absolute right-1 hover:scale-125 hover:cursor-pointer opacity-70 hover:opacity-100 mr-2 p-2"
            v-if="comment.user._id === $store.state.isLogged._id"
            @click="setOptionsOnComment(comment._id)"
@@ -66,17 +62,18 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: "PostComments",
-  data(){
+  data() {
     return {
-      content:"",
+      content: "",
       optionOnComment: false,
       currentIdOptions: "",
     }
   },
   methods: {
-    addComment(id){
+    addComment(id) {
       const body = {
         user: this.$store.state.isLogged._id,
         content: this.content,
@@ -90,7 +87,7 @@ export default {
             console.log(error);
           })
     },
-    deleteComment(postId, commentId){
+    deleteComment(postId, commentId) {
       axios.delete(`http://localhost:3000/post/${postId}/${commentId}`, this.$store.state.header)
           .then(() => {
             this.$store.dispatch("setPosts");
@@ -99,7 +96,7 @@ export default {
             console.log(error);
           })
     },
-    setOptionsOnComment(commentId){
+    setOptionsOnComment(commentId) {
       this.currentIdOptions = commentId;
       this.optionOnComment = !this.optionOnComment;
     }
@@ -108,18 +105,21 @@ export default {
 </script>
 
 <style scoped>
-  .date{
-    font-size: 12px;
-    line-height: 12.05px;
-  }
-  .time{
-    font-size: 9px;
-    line-height: 9.04px;
-  }
-  .comment{
-    border-radius: 30px;
-  }
-  .deleteMenu{
-    filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
-  }
+.date {
+  font-size: 12px;
+  line-height: 12.05px;
+}
+
+.time {
+  font-size: 9px;
+  line-height: 9.04px;
+}
+
+.comment {
+  border-radius: 30px;
+}
+
+.deleteMenu {
+  filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.1));
+}
 </style>

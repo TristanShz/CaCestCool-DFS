@@ -15,15 +15,16 @@
                placeholder="Titre de l'article..."
                maxlength="50"
                v-model="title"
-               class="w-full font-bold focus:outline-none mb-1"
+               class="w-full font-bold mb-1"
+               @input="checkInputs"
         >
         <textarea
             name="description"
             placeholder="Contenu de l'article..."
             maxlength="1500"
-            class="w-full h-auto resize-none focus:outline-none overflow-hidden"
+            class="w-full h-auto resize-y outline-blue overflow-hidden "
             v-model="description"
-            @input="checkTextArea"
+            @input="checkInputs"
         ></textarea>
       </div>
     </div>
@@ -32,7 +33,7 @@
            class="w-10 h-10 absolute z-10 top-2 left-2 hover:scale-110 hover:cursor-pointer"
            @click="removeImage"
       >
-      <img src="" alt="" id="imgPreview" class="mb-8 rounded-xl z-0">
+      <img src="" alt="" id="imgPreview" class="mb-4 rounded-xl z-0">
     </div>
     <p class="text-red self-end mb-4">{{ errorMessage }}</p>
     <div class="flex justify-between self-end w-5/6 items-center">
@@ -56,19 +57,25 @@ export default {
     return {
       title: "",
       description: "",
-      imagePreview: false,
       errorMessage: "",
+      imagePreview: false,
     }
   },
   methods: {
-    checkTextArea() {
-      const textarea = document.querySelector('textarea');
-      textarea.style.height = textarea.scrollHeight + "px";
-    },
     fileInput(event) {
       const imgPreview = document.querySelector('#imgPreview');
       imgPreview.src = URL.createObjectURL(event.target.files[0]);
       this.imagePreview = true;
+    },
+    checkInputs() {
+      const textarea = document.querySelector('textarea');
+      textarea.style.height = textarea.scrollHeight + "px";
+      const regex = /^[a-zA-Z0-9-\s!@#%^&:*._)(,œéèàêâôîûäöüïëç«»/'-]+$/g;
+      if (regex.test(this.description + this.title) === true) {
+        this.errorMessage = "";
+      } else {
+        this.errorMessage = "Veuillez ne pas utilisé de caractères spéciaux autres que '!@#%^&*._,)(-ç«»/";
+      }
     },
     removeImage() {
       const inputFile = document.querySelector('#file');
@@ -78,7 +85,7 @@ export default {
       imgPreview.src = "";
     },
     async addPost() {
-      if (this.title.length && this.description.length) {
+      if (this.title.length && this.description.length && this.errorMessage === "") {
         const body = new FormData(document.querySelector('form'));
         axios.post("http://localhost:3000/post", body, this.$store.state.header)
             .then(() => {

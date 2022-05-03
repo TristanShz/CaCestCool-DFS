@@ -119,9 +119,9 @@ export default {
         if (this.password.length >= 8) {
           const hasNumber = /\d/;
           const regex = /^[a-zA-Z0-9!@#%^&*]+$/g;
-          if (!hasNumber.test(this.newPassword) || !regex.test(this.newPassword)) {
-            this.newPasswordError = "Votre mot de passe doit contenir au moins un chiffre et ne doit pas contenir de " +
-                "caractères spéciaux autres que '! @ # % $ ^ & *'";
+          if (!hasNumber.test(this.password) || !regex.test(this.password)) {
+            this.passwordError = "Votre mot de passe doit contenir au moins un chiffre et ne doit pas contenir de " +
+                "caractères spéciaux autres que '!@#%$^&*'";
           } else {
             if (this.confirmPassword && this.password !== this.confirmPassword) {
               this.passwordError = "Les mots de passes ne correspondent pas"

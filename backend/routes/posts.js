@@ -6,7 +6,7 @@ const upload = require("../middlewares/postImagesUpload")
 const router = express.Router();
 
 //route GET /post
-router.get("/", PostsController.getList);
+router.get("/", verifyJwtToken, PostsController.getList);
 router.get("/:id", verifyJwtToken, PostsController.getOne);
 //route GET pour avoir tout les posts d'un user grâce à son ID /post/user/:userId
 router.get("/user/:userId", verifyJwtToken, PostsController.getListByUser);

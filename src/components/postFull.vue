@@ -2,7 +2,10 @@
   <div id="postfull" class="w-2/5 bg-white h-full pt-12 px-16 overflow-scroll">
     <div class="flex justify-between mb-5">
       <div class="flex justify-center items-center rounded-full bg-grey h-8 text-white px-6">
-        {{ new Date($store.getters.currentPost.createdAt).toLocaleDateString() }}
+        {{
+          $store.getters.currentPost.created_at ? new Date($store.getters.currentPost.created_at).toLocaleDateString() :
+              new Date($store.getters.currentPost.createdAt).toLocaleDateString()
+        }}
       </div>
       <div
           class="flex justify-center items-center rounded-full bg-blue h-8 font-bold text-white px-6 hover:cursor-pointer"

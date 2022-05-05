@@ -10,11 +10,11 @@
                v-bind:class="{'focus:outline-red border-red border-2': fullNameError}">
         <span class="text-red text-sm font-light mb-4 self-start"
         >{{ fullNameError }}</span>
-        <input type="email" name="email" class="w-full h-12 mb-4 pl-5 rounded-full"
+        <input type="email" name="email" class="w-full h-12 mb-4 pl-5 rounded-full outline-blue"
                v-model="email" @input="checkEmail" v-bind:class="{'focus:outline-red border-red border-2': emailError}">
         <span class="text-red text-sm font-light mb-4 self-start"
         >{{ emailError }}</span>
-        <input type="text" value="*************" class="w-full h-12 mb-2 pl-5 rounded-full" readonly>
+        <input type="text" value="*************" class="w-full h-12 mb-2 pl-5 rounded-full outline-blue" readonly>
         <router-link to="/password"><p class="underline font-light mb-8">Modifier mon mot de passe</p></router-link>
         <div class="flex w-full">
           <p class="mr-4 font-medium">Photo de profil : </p>

@@ -1,13 +1,21 @@
 <template>
   <div id="menu" class="w-1/5 h-full flex flex-col text-grey">
     <img src="../assets/logo.png" class="self-center w-28 mt-14 mb-10">
-    <img v-if="$store.state.isLogged.profilPicture"
-         :src="require(`@/assets/userImages/${$store.state.isLogged.profilPicture}`)"
-         class="bg-white w-52 h-52 object-cover rounded-full mb-8 self-center border-4 border-white">
-    <div v-else
-         class="userImageDefault w-52 h-52 rounded-full mb-8 self-center border-4 border-white text-9xl"
-         v-bind:style="{ background: $store.state.isLogged.defaultColor}"
-    >{{ $store.state.isLogged.fullName.charAt(0) }}
+    <div class="w-52 h-52 rounded-full mb-8 self-center relative">
+      <img v-if="$store.state.isLogged.profilPicture"
+           :src="require(`@/assets/userImages/${$store.state.isLogged.profilPicture}`)"
+           class="w-full h-full rounded-full object-cover border-4 border-white absolute z-0">
+      <div v-else
+           class="userImageDefault w-full h-full rounded-full object-cover border-4 border-white absolute z-0 text-9xl"
+           v-bind:style="{ background: $store.state.isLogged.defaultColor}"
+      ><p class="-translate-y-1">{{ $store.state.isLogged.fullName.charAt(0) }}</p>
+      </div>
+      <router-link to="/account">
+        <div
+            class="w-full h-full rounded-full bg-black z-50 opacity-0 hover:opacity-50 hover:cursor-pointer flex justify-center items-center">
+          <img src="../assets/editPhoto.svg" alt="" class="w-20 h-20">
+        </div>
+      </router-link>
     </div>
     <div id="name" class="w-full my-8 flex items-center justify-center">
       <h1 class="font-bold text-xl">{{ $store.state.isLogged.fullName }}</h1>

@@ -7,7 +7,7 @@
       <div v-else
            class="userImageDefault w-16 h-16 rounded-full mr-4 text-4xl"
            v-bind:style="{ background: $store.state.isLogged.defaultColor}"
-      >{{ $store.state.isLogged.fullName.charAt(0) }}
+      ><p class="-translate-y-0.5">{{ $store.state.isLogged.fullName.charAt(0) }}</p>
       </div>
       <div class="w-5/6">
         <input type="text"
@@ -28,13 +28,14 @@
         ></textarea>
       </div>
     </div>
-    <div class="relative">
+    <div class="relative mt-4">
       <img v-if="imagePreview" src="../assets/close.png" alt=""
            class="w-10 h-10 absolute z-10 top-2 left-2 hover:scale-110 hover:cursor-pointer"
            @click="removeImage"
       >
       <img src="" alt="" id="imgPreview" class="mb-4 rounded-xl z-0">
     </div>
+
     <p class="text-red self-end mb-4">{{ errorMessage }}</p>
     <div class="flex justify-between self-end w-5/6 items-center">
       <label for="file" class="hover:cursor-pointer hover:scale-125 active:scale-100">
@@ -70,7 +71,7 @@ export default {
     checkInputs() {
       const textarea = document.querySelector('textarea');
       textarea.style.height = textarea.scrollHeight + "px";
-      const regex = /^[a-zA-Z0-9-\s!@#%^&:*._)(,œéèàêâôîûäöüïëç«»/'-]+$/g;
+      const regex = /^[a-zA-Z0-9-\s!@#%^&:*._)(,Éœéèàêâôîûäöüïëç«»/'-]+$/g;
       if (regex.test(this.description + this.title) === true) {
         this.errorMessage = "";
       } else {

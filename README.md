@@ -26,8 +26,9 @@
                 store.dispatch("checkToken")     //Alors on appel la méthode CheckToken qui
                     .then(response => {          //va vérifier si le token est bien valide et va
                         if (response) {         //connecter l'utilisateur si c'est le cas.
-                            if (to.path === "/" || to.path === "/login") next("/home"); //Si l'utilisateur essaye de se rendre sur la page register ("/") ou la page
-			                                                                //login, il est regirigé vers la page d'accueil ("/home")
+			     //Si l'utilisateur essaye de se rendre sur la page register ("/") ou la page
+			    //login, il est regirigé vers la page d'accueil ("/home")
+                            if (to.path === "/" || to.path === "/login") next("/home"); 
                             else next();
                         } else { //Si le token n'est pas valide il est redirigé vers la page Login
                             if (to.path !== "/login" && to.path !== "/") next("/login");

@@ -18,7 +18,7 @@
         <router-link to="/password"><p class="underline font-light mb-8">Modifier mon mot de passe</p></router-link>
         <div class="flex w-full">
           <p class="mr-4 font-medium">Photo de profil : </p>
-          <input type="file" id="image" name="image" placeholder="Modifier ma photo de profil" accept="image/*"
+          <input type="file" id="image" accept="image/*" name="image" placeholder="Modifier ma photo de profil"
                  class=" h-12 mb-2 pl-5 rounded-full">
         </div>
         <p class="underline mb-8 hover:cursor-pointer" @click="deleteProfilPicture($store.state.isLogged._id)">Supprimer
@@ -112,7 +112,7 @@ export default {
           })
           .catch(error => {
             console.log(error);
-            alert("Erreur lors de l'envoi du formulaire")
+            alert("Erreur lors de l'envoi du formulaire (Vérifiez le type d'image envoyé)")
           })
     }
   }

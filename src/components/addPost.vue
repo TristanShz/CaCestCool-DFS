@@ -98,7 +98,7 @@ export default {
             })
             .catch((e) => {
               console.log(e);
-              this.errorMessage = "Erreur lors de l'envoi du formulaire, veuillez réessayer"
+              this.errorMessage = "Erreur lors de l'envoi du formulaire, vérifiez le type d'image ajouté"
             })
       } else {
         this.errorMessage = "Les champs titre et description sont nécessaires"

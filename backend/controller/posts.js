@@ -1,17 +1,23 @@
 const postService = require("../services/posts.js");
 const jwt = require("jsonwebtoken");
+const userService = require("../services/users");
 
 exports.add = async (req, res) => {
     try {
-        const token = req.headers.authorization.split(" ");
-        const body = {
-            user: jwt.verify(token[1], process.env.SECRET).id,
-            title: req.body.title,
-            description: req.body.description,
-            image: req.file ? req.file.filename : "",
+        if (req.body.title && req.body.description) {
+            const token = req.headers.authorization.split(" ");
+            const body = {
+                user: jwt.verify(token[1], process.env.SECRET).id,
+                title: req.body.title,
+                description: req.body.description,
+                image: req.file ? req.file.filename : "",
+            }
+            const post = await postService.add(body);
+            res.status(200).send(post);
+        } else {
+            res.status(400).send({message: "Un titre et une description sont nécessaires."})
         }
-        const post = await postService.add(body);
-        res.status(200).send(post);
+
     } catch (e) {
         console.log(e);
         res.status(400).send(e);
@@ -56,17 +62,28 @@ exports.delete = async (req, res) => {
 exports.modify = async (req, res) => {
     try {
         let body;
+        let postModified;
         if (req.body.image === "delete") {
-            await postService.deleteImage(req.params.id);
             body = {
                 title: req.body.title,
                 description: req.body.description,
                 image: "",
             }
+            postModified = await postService.modify(req.params.id, body, true);
+        } else if (req.file) {
+            body = {
+                title: req.body.title,
+                description: req.body.description,
+                image: req.file.filename
+            }
+            postModified = await postService.modify(req.params.id, body, true);
         } else {
-            body = req.body;
+            body = {
+                title: req.body.title,
+                description: req.body.description,
+            }
+            postModified = await postService.modify(req.params.id, body);
         }
-        const postModified = await postService.modify(req.params.id, body);
         if (postModified.modifiedCount === 1) return res.status(200).send(postModified);
         return res.status(400).send({message: "Aucun post trouver avec cet ID"})
     } catch (e) {

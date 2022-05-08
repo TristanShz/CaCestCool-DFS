@@ -36,7 +36,6 @@ export default {
       errorMessage: "",
       passwordError: "",
       newPasswordError: "",
-      passwordValid: false,
       newPasswordValid: false,
     }
   },
@@ -62,7 +61,7 @@ export default {
       }
     },
     modifyPassword(userId) {
-      if (this.passwordValid && this.newPasswordValid) {
+      if (this.newPasswordValid) {
         const body = {
           password: this.password,
           newPassword: this.newPassword,

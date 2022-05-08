@@ -21,6 +21,6 @@ router.delete("/:id", verifyJwtToken, PostsController.delete);
 //route DELETE d'un commentaire /post/id/commentId
 router.delete("/:id/:commentId", verifyJwtToken, CommentsController.delete)
 //route UPDATE /post/id
-router.put("/:id", verifyJwtToken, PostsController.modify);
+router.put("/:id", verifyJwtToken, upload.single("image"), PostsController.modify);
 
 module.exports = router;

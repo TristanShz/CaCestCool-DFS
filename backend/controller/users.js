@@ -20,15 +20,20 @@ exports.getOne = async (req, res) => {
 }
 exports.add = async (req, res) => {
     try {
-        const password = await userService.hashPassword(req.body.password);
-        const newUser = {
-            fullName: req.body.fullName,
-            email: req.body.email,
-            password: password,
-        };
-        console.log(newUser);
-        const user = await userService.add(newUser);
-        res.status(200).send(user);
+        if (req.body.fullName && req.body.email && req.body.password) {
+            const password = await userService.hashPassword(req.body.password);
+            const newUser = {
+                fullName: req.body.fullName,
+                email: req.body.email,
+                password: password,
+            };
+            console.log(newUser);
+            const user = await userService.add(newUser);
+            res.status(200).send(user);
+        } else {
+            res.status(400).send({message: "Veuillez remplir tout les champs"});
+        }
+
     } catch (e) {
         console.log(e);
         res.status(400).send(e);
@@ -55,7 +60,7 @@ exports.modify = async (req, res) => {
                 email: req.body.email,
                 profilPicture: req.file.filename
             }
-            userModified = await userService.modify(req.params.id, body);
+            userModified = await userService.modify(req.params.id, body, true);
         } else {
             body = {
                 fullName: req.body.fullName,

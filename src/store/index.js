@@ -60,7 +60,6 @@ const store = new Vuex.Store({
                 })
         },
         setUserLoggedPosts(context) { //Envoi une requête à l'api pour récupérer tout les posts de l'utilisateur connecté
-            console.log("hey");
             axios.get(`http://localhost:3000/post/user/${context.state.isLogged._id}`, context.state.header)
                 .then(response => {
                     context.commit("setPosts", response.data);

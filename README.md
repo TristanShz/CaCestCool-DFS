@@ -6,6 +6,8 @@
 - Nom: cacestcool
 - Collections : posts, users
 
+#### Modifier le .env si c'est nécessaire
+
 ### Features
 
 - Ajout d utilisateurs

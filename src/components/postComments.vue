@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full text-lightgrey flex-col">
     <div class="flex w-full mr-5 items-center mb-8 relative"
-         v-for="comment in $store.getters.currentPost.comments"
+         v-for="comment in $store.getters.getCurrentPost.comments"
          :key="comment._id"
          v-bind:class="{'justify-end': comment.user._id === $store.state.isLogged._id}"
     >
@@ -37,12 +37,12 @@
            v-if="currentIdOptions === comment._id && optionOnComment"
       >
         <p class="text-red text-xs ml-2 hover:cursor-pointer hover:scale-110 active:scale-100"
-           @click="deleteComment($store.getters.currentPost._id, comment._id)"
+           @click="deleteComment($store.getters.getCurrentPost._id, comment._id)"
         >Supprimer</p>
       </div>
     </div>
     <div class="w-full">
-      <form class="w-full flex flex-col" @submit.prevent="addComment($store.getters.currentPost._id)">
+      <form class="w-full flex flex-col" @submit.prevent="addComment($store.getters.getCurrentPost._id)">
         <textarea placeholder="Ajouter un commentaire..."
                   class="w-full resize-none mb-4 bg-commentgrey rounded-3xl p-2 focus:outline-blue"
                   rows="4"

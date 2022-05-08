@@ -15,7 +15,7 @@
                placeholder="Titre de l'article..."
                maxlength="50"
                v-model="title"
-               class="w-full font-bold mb-1"
+               class="w-full font-bold mb-1 outline-blue"
                @input="checkInputs"
         >
         <textarea

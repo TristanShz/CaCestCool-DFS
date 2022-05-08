@@ -17,8 +17,8 @@ exports.getOne = (id) => {
 }
 exports.delete = (id) => {
     const uploadsFile = fs.readdirSync(path.join(__dirname, "../../src/assets/postImages"));
-    Post.findOne({_id: id }, (err, post) => {
-        if(uploadsFile.includes(post.image)) {
+    Post.findOne({_id: id}, (err, post) => {
+        if (uploadsFile.includes(post.image)) {
             fs.unlinkSync(
                 path.join(__dirname, "../../src/assets/postImages/", post.image)
             );
@@ -29,12 +29,24 @@ exports.delete = (id) => {
 exports.modify = (id, post) => {
     return Post.updateOne({_id: id}, post)
 }
+exports.deleteImage = async (id) => {
+    const post = await Post.findOne({_id: id}).exec();
+    if (post.image) {
+        const uploadsFile = fs.readdirSync(path.join(__dirname, "../../src/assets/postImages"));
+        if (uploadsFile.includes(post.image)) {
+            fs.unlinkSync(
+                path.join(__dirname, "../../src/assets/postImages", post.image)
+            );
+        }
+    }
+
+}
 exports.like = async (postId, userId) => {
     let post = await Post.findOne({_id: postId}).exec();
-    if(post.likes.includes(userId)){
+    if (post.likes.includes(userId)) {
         const indexToDelete = post.likes.indexOf(userId);
-        post.likes.splice(indexToDelete,1);
-    }else{
+        post.likes.splice(indexToDelete, 1);
+    } else {
         post.likes.push(userId);
     }
     post.markModified('likes');

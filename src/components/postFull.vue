@@ -1,32 +1,36 @@
 <template>
-  <div id="postfull" class="w-2/5 bg-white h-full pt-12 px-16 overflow-scroll">
+  <div id="postfull" class="w-2/5 bg-white h-full pt-12 px-16 overflow-y-scroll">
     <div class="flex justify-between mb-5">
       <div class="flex justify-center items-center rounded-full bg-grey h-8 text-white px-6">
         {{
-          $store.getters.currentPost.created_at ? new Date($store.getters.currentPost.created_at).toLocaleDateString() :
-              new Date($store.getters.currentPost.createdAt).toLocaleDateString()
+          $store.getters.getCurrentPost.created_at ? new Date($store.getters.getCurrentPost.created_at).toLocaleDateString() :
+              new Date($store.getters.getCurrentPost.createdAt).toLocaleDateString()
         }}
       </div>
       <div
-          class="flex justify-center items-center rounded-full bg-blue h-8 font-bold text-white px-6 hover:cursor-pointer"
-          v-if="$store.getters.currentPost.user._id !== $store.state.isLogged._id"
-          @click="likePost($store.getters.currentPost._id)"
+          class="flex justify-center items-center rounded-full bg-blue h-8 font-bold text-white px-6 hover:cursor-pointer
+          hover:scale-110 active:scale-100"
+          v-if="$store.getters.getCurrentPost.user._id !== $store.state.isLogged._id"
+          v-bind:class="$store.getters.getCurrentPost.likes.includes($store.state.isLogged._id) ? 'bg-red' : 'bg-blue' "
+          @click="likePost($store.getters.getCurrentPost._id)"
       >
-        {{ $store.getters.currentPost.likes.includes($store.state.isLogged._id) ? "Unlike" : "Like" }}
+        {{ $store.getters.getCurrentPost.likes.includes($store.state.isLogged._id) ? "Unlike" : "Like" }}
       </div>
     </div>
-    <h1 class="font-bold text-xl">{{ $store.getters.currentPost.title }}</h1>
-    <p class="text-sm text-blue my-1">par {{ $store.getters.currentPost.user.fullName }}</p>
+    <h1 class="font-bold text-xl">{{ $store.getters.getCurrentPost.title }}</h1>
+    <p class="text-sm text-blue my-1">par {{ $store.getters.getCurrentPost.user.fullName }}</p>
     <p class="text-sm mb-3">
-      {{ $store.getters.currentPost.likes.length }}
-      {{ $store.getters.currentPost.likes.length > 1 ? "likes" : "like" }}
+      {{ $store.getters.getCurrentPost.likes.length }}
+      {{ $store.getters.getCurrentPost.likes.length > 1 ? "likes" : "like" }}
     </p>
     <div class="line"></div>
-    <img v-if="$store.getters.currentPost.image"
+    <img v-if="$store.getters.getCurrentPost.image"
          class="my-10 w-full"
-         :src="require(`@/assets/postImages/${$store.getters.currentPost.image}`)"
+         :src="require(`@/assets/postImages/${$store.getters.getCurrentPost.image}`)"
          alt="Post image">
-    <pre class="text-sm w-full overflow-ellipsis whitespace-pre-wrap">{{ $store.getters.currentPost.description }}</pre>
+    <pre class="text-sm w-full overflow-ellipsis whitespace-pre-wrap">{{
+        $store.getters.getCurrentPost.description
+      }}</pre>
     <div class="line my-8"></div>
     <post-comments></post-comments>
   </div>
@@ -60,7 +64,4 @@ export default {
   background-color: lightgray;
 }
 
-#postfull::-webkit-scrollbar {
-  display: none;
-}
 </style>

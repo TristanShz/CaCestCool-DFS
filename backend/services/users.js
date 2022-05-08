@@ -21,8 +21,8 @@ exports.getUsers = () => {
     return User.find({});
 }
 exports.getOne = (user) => {
-    if (user.id) return User.findOne({_id: user.id});
-    if (user.email) return User.findOne({email: user.email});
+    if (user.id) return User.findOneAndUpdate({_id: user.id});
+    if (user.email) return User.findOneAndUpdate({email: user.email});
 }
 exports.getPassword = async (id) => {
     const user = await User.findOne({_id: id}).select("password").exec();

@@ -10,12 +10,11 @@ const store = new Vuex.Store({
         isLogged: {},
         posts: [],
         currentPostId: "",
-        onEditPost: {},
     },
     getters: {
-        currentPost(state) {
+        getCurrentPost(state) {
             return state.posts.find(post => post._id === state.currentPostId);
-        }
+        },
     },
     mutations: {
         logUser(state, user) {
@@ -25,12 +24,7 @@ const store = new Vuex.Store({
             state.posts = postsList.reverse();
         },
         setCurrentPost(state, postId) {
-            if (state.onEditPost._id) state.onEditPost = {};
             state.currentPostId = state.currentPostId === postId ? "" : postId;
-        },
-        setOnEditPost(state, post) {
-            if (state.currentPost._id) state.currentPost = {};
-            state.onEditPost = state.onEditPost === post ? {} : post;
         },
         setHeader(state) {
             state.header = {
@@ -74,9 +68,6 @@ const store = new Vuex.Store({
         },
         setCurrentPost(context, postId) {
             context.commit("setCurrentPost", postId);
-        },
-        setOnEditPost(context, post) {
-            context.commit("setOnEditPost", post);
         },
         disconnect(context) {
             localStorage.clear();

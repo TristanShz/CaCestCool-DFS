@@ -21,9 +21,16 @@
           <input type="file" id="image" name="image" placeholder="Modifier ma photo de profil" accept="image/*"
                  class=" h-12 mb-8 pl-5 rounded-full">
         </div>
-        <button class="w-56 h-12 bg-blue text-white text-base font-bold mb-8 rounded-full">Modifier</button>
+        <button
+            class="w-56 h-12 bg-blue text-white text-base font-bold mb-2 rounded-full hover:scale-110 active:bg-darkblue active:scale-100">
+          Modifier
+        </button>
+        <transition name="fadeout" v-on:after-enter="validMessage = false">
+          <p v-if="validMessage" class="text-green font-bold opacity-0">Modification effectuée !</p>
+        </transition>
       </form>
-      <p class="text-red underline hover:cursor-pointer" @click="$store.dispatch('disconnect')">Se déconnecter</p>
+      <p class="text-red underline hover:cursor-pointer absolute bottom-12" @click="$store.dispatch('disconnect')">Se
+        déconnecter</p>
     </div>
   </div>
 </template>
@@ -43,6 +50,7 @@ export default {
       emailError: "",
       fullNameValid: true,
       emailValid: true,
+      validMessage: false,
     }
   },
   methods: {
@@ -50,12 +58,13 @@ export default {
       if (this.emailValid && this.fullNameValid) {
         const body = new FormData(document.querySelector('form'));
         axios.put(`http://localhost:3000/users/${userId}`, body, this.$store.state.header)
-            .then((response) => {
-              console.log(response.data);
+            .then(() => {
               this.$store.dispatch("checkToken");
+              this.validMessage = true;
             })
             .catch(error => {
               console.log(error);
+              alert("Erreur lors de l'envoi du formulaire")
             })
       } else {
         return 0;
@@ -100,6 +109,20 @@ export default {
 <style scoped>
 h1 {
   font-family: 'Timmana', sans-serif;
+}
+
+.fadeout-enter-active {
+  animation: fadeout 10s;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 </style>

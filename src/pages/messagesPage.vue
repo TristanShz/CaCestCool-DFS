@@ -5,8 +5,6 @@
     <transition name="slide">
       <post-full v-if="$store.state.currentPostId"></post-full>
     </transition>
-    <edit-post v-if="$store.state.onEditPost._id"></edit-post>
-
   </div>
 </template>
 
@@ -14,11 +12,10 @@
 import SideMenu from "../components/sideMenu"
 import PostPreview from "../components/postPreview"
 import PostFull from "../components/postFull"
-import EditPost from "@/components/editPost";
 
 export default {
   name: "messagesPage",
-  components: {EditPost, SideMenu, PostPreview, PostFull},
+  components: {SideMenu, PostPreview, PostFull},
   created() {
     this.$store.dispatch("setUserLoggedPosts");
   }

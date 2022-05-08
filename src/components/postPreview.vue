@@ -1,5 +1,5 @@
 <template>
-  <div id="wallContent" class="flex flex-col items-center w-2/5 px-20 overflow-scroll">
+  <div id="wallContent" class="flex flex-col items-center w-2/5 px-20 overflow-y-scroll">
     <h1 class="text-titlegrey text-4xl mt-32 mb-5 self-start">Mon Mur</h1>
     <add-post></add-post>
     <div id="line" class="mt-5"></div>
@@ -28,13 +28,14 @@
             <span class="flex" v-else>{{ post.likes.length }}<img class="ml-1" src="../assets/thumb.svg"></span>
           </div>
         </div>
-        <div id="arrowRight" v-if="$store.getters.currentPost === post || $store.state.onEditPost === post"></div>
+        <div id="arrowRight" v-if="$store.getters.getCurrentPost === post || $store.getters.getEditPost === post"></div>
       </div>
-      <img src="../assets/edit.svg"
-           class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
-           v-if="post.user._id === $store.state.isLogged._id"
-           @click="$store.dispatch('setOnEditPost', post)"
-      >
+      <router-link :to="{name: 'editPostPage', params: {id: post._id}}">
+        <img src="../assets/edit.svg"
+             class="w-8 h-8 absolute top-1 right-12 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
+             v-if="post.user._id === $store.state.isLogged._id"
+        >
+      </router-link>
       <img src="../assets/delete.svg"
            class="w-8 h-8 absolute top-1 right-5 hover:cursor-pointer hover:scale-110 opacity-50 hover:opacity-100"
            v-if="post.user._id === $store.state.isLogged._id"
@@ -57,8 +58,8 @@ export default {
       axios.delete(`http://localhost:3000/post/${id}`, this.$store.state.header)
           .then(() => {
             this.$store.dispatch("setPosts");
-            if (this.$store.state.currentPost._id === id) {
-              this.$store.dispatch("setCurrentPost", {});
+            if (this.$store.state.currentPostId === id) {
+              this.$store.dispatch("setCurrentPost", "");
             }
           })
           .catch(error => {
@@ -79,8 +80,12 @@ export default {
   font-family: 'Timmana', sans-serif;
 }
 
-#wallContent::-webkit-scrollbar {
-  display: none;
+#wallContent {
+  direction: rtl;
+}
+
+#wallContent > * {
+  direction: ltr;
 }
 
 #arrowRight {

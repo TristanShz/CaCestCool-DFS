@@ -17,18 +17,19 @@
 ### Features
 
 - Ajout d utilisateurs
-- Connexion (Tant qu il y a un token valide dans le Localstorage, l utilisateur reste conncecter à l application, même il ferme et réouvre le navigaterur)
-- Impossibilité de se rendre sur les pages login et register si on est connecter. (Utilisation des navigations guards de Vue-Router)
+- Connexion (Tant qu il y a un token valide dans le Localstorage, l utilisateur reste conncecter à l application, même si il ferme et réouvre le navigaterur)
+- Impossibilité de se rendre sur les pages login et register si on est connecter. (Utilisation des navigation guards de Vue-Router)
 ```javascript
 	router.beforeEach(async (to, from, next) => { //Appelé avant chaque arrivée sur une page
-        if (!store.state.isLogged._id) {          //Si Aucun utilisateur n'est connecté
-            if (localStorage.getItem('token')) { //Et qu'il y a un token dans le localstorage
+        if (!store.state.isLogged._id) {         
+            if (localStorage.getItem('token')) { //Si il y a un token dans le localstorage
                 store.dispatch("checkToken")     //Alors on appel la méthode CheckToken qui
                     .then(response => {          //va vérifier si le token est bien valide et va
                         if (response) {         //connecter l'utilisateur si c'est le cas.
-                            if (to.path === "/" || to.path === "/login") next("/home");
+                            if (to.path === "/" || to.path === "/login") next("/home"); //Si l'utilisateur essaye de se rendre sur la page register ("/") ou la page
+			                                                                //login, il est regirigé vers la page d'accueil ("/home")
                             else next();
-                        } else {
+                        } else { //Si le token n'est pas valide il est redirigé vers la page Login
                             if (to.path !== "/login" && to.path !== "/") next("/login");
                             else next();
                         }

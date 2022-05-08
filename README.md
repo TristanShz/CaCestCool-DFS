@@ -1,5 +1,11 @@
 # cacestcool
 
+### Technologies utilisées
+
+- Backend: NodeJS + ExpressJS
+- Frontend: VueJS
+- Base de données: MongoDB + Mongoose
+
 ### Requis pour faire tourner l'application
 
 #### Une base de donnée MongoDB

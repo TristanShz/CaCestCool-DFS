@@ -1,5 +1,11 @@
 # cacestcool
 
+### Requis pour faire tourner l'application
+
+#### Une base de donnée MongoDB
+- Nom: cacestcool
+- Collections : posts, users
+
 ### Features
 
 - Ajout d utilisateurs

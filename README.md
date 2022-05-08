@@ -38,7 +38,7 @@
 ```
 - Déconnexion (Page "Mon Compte")
 - Ajout / Modification / Suppression de post 
-- Possibilité de mettre ou non de mettre une image sur son post
+- Possibilité de mettre ou non une image sur son post
 - Ajout / Suppression de commentaires
 - Possibilité de laisser un like sur les posts (pas les siens)
 - Ajouter / Modifier / Supprimer sa photo de profil (Page "Mon compte")

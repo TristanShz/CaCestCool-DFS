@@ -22,7 +22,7 @@
     </div>
 
 
-    <ul class="text-xl ml-10">
+    <ul class="text-xl ml-10 mr-10">
       <router-link to="/home">
         <li class="my-6" v-bind:class="{'font-bold': $route.path==='/home'}">Mon mur</li>
       </router-link>
@@ -41,7 +41,9 @@
 
 <script>
 export default {
-  name: "sideMenu.vue"
+  name: "sideMenu.vue",
+  components: {}
+
 }
 </script>
 

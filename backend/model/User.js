@@ -36,6 +36,10 @@ const userSchema = new Schema(
                 ];
                 return colorList[Math.floor(Math.random() * 6)];
             }
+        },
+        lastConnection: {
+            type: Date,
+            default: Date.now(),
         }
     },
     {

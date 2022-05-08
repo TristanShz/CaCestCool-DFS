@@ -14,13 +14,13 @@ const router = new VueRouter({
     routes: Routes,
 });
 
-//Navigations guards qui check si un utilisateur est connecté avant chaque arrivée sur une page
+//Navigation guards qui check si un utilisateur est connecté avant chaque arrivée sur une page
 //si ce n'est pas le cas et qu'un token valide est présent dans le localstorage, l'utilisateur est connecté
 //grâce à l'action checkToken du store.
 
 //Sinon il est renvoyé vers la page /login.
 router.beforeEach(async (to, from, next) => {
-    if (!store.state.isLogged.email) {
+    if (!store.state.isLogged._id) {
         if (localStorage.getItem('token')) {
             store.dispatch("checkToken")
                 .then(response => {

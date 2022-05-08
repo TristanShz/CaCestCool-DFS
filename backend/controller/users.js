@@ -45,19 +45,24 @@ exports.delete = async (req, res) => {
 exports.modify = async (req, res) => {
     try {
         let body;
-        if (req.file) {
+        let userModified;
+        if (req.body.profilPicture === "delete") {
+            body = {profilPicture: ""};
+            userModified = await userService.modify(req.params.id, body, true);
+        } else if (req.file) {
             body = {
                 fullName: req.body.fullName,
                 email: req.body.email,
                 profilPicture: req.file.filename
             }
+            userModified = await userService.modify(req.params.id, body);
         } else {
             body = {
                 fullName: req.body.fullName,
                 email: req.body.email,
             }
+            userModified = await userService.modify(req.params.id, body);
         }
-        const userModified = await userService.modify(req.params.id, body);
         if (userModified.modifiedCount === 1) return res.status(200).send(userModified);
         return res.status(400).send({message: "Aucun user trouver avec cet ID"})
     } catch (e) {
@@ -83,6 +88,7 @@ exports.login = async (req, res) => {
             process.env.SECRET,
             {expiresIn: "3 hours"}
         );
+        await userService.setLastConnection(user._id);
         return res.status(200).json({access_token: token, user: user});
     } else {
         return res.status(400).json({message: "Mauvais mot de passe"})

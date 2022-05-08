@@ -80,12 +80,8 @@ export default {
   font-family: 'Timmana', sans-serif;
 }
 
-#wallContent {
-  direction: rtl;
-}
-
-#wallContent > * {
-  direction: ltr;
+#wallContent::-webkit-scrollbar {
+  display: none;
 }
 
 #arrowRight {

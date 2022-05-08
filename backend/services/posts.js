@@ -39,7 +39,6 @@ exports.deleteImage = async (id) => {
             );
         }
     }
-
 }
 exports.like = async (postId, userId) => {
     let post = await Post.findOne({_id: postId}).exec();

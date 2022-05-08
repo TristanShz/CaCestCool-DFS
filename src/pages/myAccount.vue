@@ -19,8 +19,10 @@
         <div class="flex w-full">
           <p class="mr-4 font-medium">Photo de profil : </p>
           <input type="file" id="image" name="image" placeholder="Modifier ma photo de profil" accept="image/*"
-                 class=" h-12 mb-8 pl-5 rounded-full">
+                 class=" h-12 mb-2 pl-5 rounded-full">
         </div>
+        <p class="underline mb-8 hover:cursor-pointer" @click="deleteProfilPicture($store.state.isLogged._id)">Supprimer
+          ma photo de profil</p>
         <button
             class="w-56 h-12 bg-blue text-white text-base font-bold mb-2 rounded-full hover:scale-110 active:bg-darkblue active:scale-100">
           Modifier
@@ -102,6 +104,17 @@ export default {
         this.emailError = "";
       }
     },
+    deleteProfilPicture(userId) {
+      axios.put(`http://localhost:3000/users/${userId}`, {profilPicture: "delete"}, this.$store.state.header)
+          .then(() => {
+            this.$store.dispatch("checkToken");
+            this.validMessage = true;
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Erreur lors de l'envoi du formulaire")
+          })
+    }
   }
 }
 </script>

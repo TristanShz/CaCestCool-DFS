@@ -21,16 +21,16 @@ exports.getUsers = () => {
     return User.find({});
 }
 exports.getOne = (user) => {
-    if (user.id) return User.findOneAndUpdate({_id: user.id});
-    if (user.email) return User.findOneAndUpdate({email: user.email});
+    if (user.id) return User.findOne({_id: user.id}).exec();
+    if (user.email) return User.findOne({email: user.email}).exec();
 }
 exports.getPassword = async (id) => {
     const user = await User.findOne({_id: id}).select("password").exec();
     return user.password;
 }
-exports.modify = async (id, user) => {
+exports.modify = async (id, user, removeProfilPic) => {
     const userToModify = await User.findOne({_id: id}).exec();
-    if (userToModify.profilPicture && user.profilPicture) {
+    if (removeProfilPic) {
         const uploadsFile = fs.readdirSync(path.join(__dirname, "../../src/assets/userImages"));
         if (uploadsFile.includes(userToModify.profilPicture)) {
             fs.unlinkSync(
@@ -43,4 +43,7 @@ exports.modify = async (id, user) => {
 
 exports.modifyPassword = async (id, newPassword) => {
     return User.updateOne({_id: id}, {password: newPassword});
+}
+exports.setLastConnection = (id) => {
+    return User.updateOne({_id: id}, {lastConnection: Date.now()});
 }

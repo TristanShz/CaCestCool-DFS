@@ -43,3 +43,5 @@
 - Possibilité de laisser un like sur les posts (pas les siens)
 - Ajouter / Modifier / Supprimer sa photo de profil (Page "Mon compte")
 - Modification de son nom d utilisateur, adresse email et mot de passe (page "Mon compte"
+- Utilisation de JSON Web Token pour sécuriser l'API
+- Utilisation de Bcrypt pour hasher les mots de passe

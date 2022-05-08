@@ -5,6 +5,7 @@
 - Backend: NodeJS + ExpressJS
 - Frontend: VueJS
 - Base de données: MongoDB + Mongoose
+- Css: Tailwind
 
 ### Requis pour faire tourner l'application
 
@@ -50,6 +51,6 @@
 - Ajout / Suppression de commentaires
 - Possibilité de laisser un like sur les posts (pas les siens)
 - Ajouter / Modifier / Supprimer sa photo de profil (Page "Mon compte")
-- Modification de son nom d utilisateur, adresse email et mot de passe (page "Mon compte"
+- Modification de son nom d utilisateur, adresse email et mot de passe (page "Mon compte")
 - Utilisation de JSON Web Token pour sécuriser l'API
 - Utilisation de Bcrypt pour hasher les mots de passe

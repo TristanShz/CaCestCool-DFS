@@ -5,7 +5,8 @@
 - Ajout d utilisateurs
 - Connexion (Tant qu il y a un token valide dans le Localstorage, l utilisateur reste conncecter à l application, même il ferme et réouvre le navigaterur)
 - Impossibilité de se rendre sur les pages login et register si on est connecter. (Utilisation des navigations guards de Vue-Router)
-	   router.beforeEach(async (to, from, next) => { //Appelé avant chaque arrivée sur une page
+```javascript
+	router.beforeEach(async (to, from, next) => { //Appelé avant chaque arrivée sur une page
         if (!store.state.isLogged._id) {          //Si Aucun utilisateur n'est connecté
             if (localStorage.getItem('token')) { //Et qu'il y a un token dans le localstorage
                 store.dispatch("checkToken")     //Alors on appel la méthode CheckToken qui
@@ -26,6 +27,7 @@
             next();
         }
     })
+```
 - Déconnexion (Page "Mon Compte")
 - Ajout / Modification / Suppression de post 
 - Possibilité de mettre ou non de mettre une image sur son post

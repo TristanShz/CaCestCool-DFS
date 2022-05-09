@@ -54,3 +54,4 @@
 - Modification de son nom d utilisateur, adresse email et mot de passe (page "Mon compte")
 - Utilisation de JSON Web Token pour sécuriser l'API
 - Utilisation de Bcrypt pour hasher les mots de passe
+- Bulle de notification pour les posts non lu

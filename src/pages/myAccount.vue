@@ -24,7 +24,8 @@
         <p class="underline mb-8 hover:cursor-pointer" @click="deleteProfilPicture($store.state.isLogged._id)">Supprimer
           ma photo de profil</p>
         <button
-            class="w-56 h-12 bg-blue text-white text-base font-bold mb-2 rounded-full hover:scale-110 active:bg-darkblue active:scale-100">
+            class="w-56 h-12 bg-blue text-white text-base font-bold mb-2 rounded-full hover:scale-110
+            active:bg-darkblue active:scale-100 transition-all">
           Modifier
         </button>
         <transition name="fadeout" v-on:after-enter="validMessage = false">

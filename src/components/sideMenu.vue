@@ -24,8 +24,8 @@
 
     <ul class="text-xl ml-10 mr-10">
       <router-link to="/home">
-        <div class="flex justify-between items-center">
-          <li class="mt-6 mb-2" v-bind:class="{'font-bold': $route.path==='/home'}">Mon mur</li>
+        <div class="flex justify-between items-end">
+          <li class="mt-6 mb-0.5" v-bind:class="{'font-bold': $route.path==='/home'}">Mon mur</li>
           <new-post-notification></new-post-notification>
         </div>
       </router-link>

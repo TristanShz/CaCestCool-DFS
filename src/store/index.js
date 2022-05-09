@@ -15,6 +15,9 @@ const store = new Vuex.Store({
         getCurrentPost(state) {
             return state.posts.find(post => post._id === state.currentPostId);
         },
+        getPostsOfUserLogged(state) {
+            return state.posts.filter(post => post.user._id === state.isLogged._id)
+        },
         getPostsUnreadByUserLogged(state) {
             const postsByOtherUsers = state.posts.filter(post => post.user._id !== state.isLogged._id);
             return postsByOtherUsers.filter(post => !post.readBy.includes(state.isLogged._id));
@@ -66,15 +69,10 @@ const store = new Vuex.Store({
                     context.commit("setPosts", response.data);
                 })
         },
-        setUserLoggedPosts(context) { //Envoi une requête à l'api pour récupérer tout les posts de l'utilisateur connecté
-            axios.get(`http://localhost:3000/post/user/${context.state.isLogged._id}`, context.state.header)
-                .then(response => {
-                    context.commit("setPosts", response.data);
-                })
-        },
         async setCurrentPost(context, post) {
             context.commit("setCurrentPost", post._id);
-            if (!post.readBy.includes(context.state.isLogged._id)) {
+            if (!post.readBy.includes(context.state.isLogged._id)
+                && post.user._id !== context.state.isLogged._id) {
                 axios.put(`http://localhost:3000/post/readby/${context.state.currentPostId}`,
                     {id: context.state.isLogged._id}, context.state.header)
                     .then(() => {

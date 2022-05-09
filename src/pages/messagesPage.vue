@@ -16,9 +16,6 @@ import PostFull from "../components/postFull"
 export default {
   name: "messagesPage",
   components: {SideMenu, PostPreview, PostFull},
-  created() {
-    this.$store.dispatch("setUserLoggedPosts");
-  }
 }
 </script>
 

@@ -23,15 +23,15 @@
       {{ $store.getters.getCurrentPost.likes.length }}
       {{ $store.getters.getCurrentPost.likes.length > 1 ? "likes" : "like" }}
     </p>
-    <div class="line"></div>
+    <div class="line mb-5"></div>
     <img v-if="$store.getters.getCurrentPost.image"
-         class="my-10 w-full"
+         class="my-5 w-full"
          :src="require(`@/assets/postImages/${$store.getters.getCurrentPost.image}`)"
          alt="Post image">
     <pre class="text-sm w-full overflow-ellipsis whitespace-pre-wrap">{{
         $store.getters.getCurrentPost.description
       }}</pre>
-    <div class="line my-8"></div>
+    <div class="line my-5"></div>
     <post-comments></post-comments>
   </div>
 </template>

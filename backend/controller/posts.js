@@ -99,3 +99,12 @@ exports.like = async (req, res) => {
         res.status(400).send(e);
     }
 }
+
+exports.updateReadBy = async (req, res) => {
+    try {
+        const postReadBy = await postService.updateReadBy(req.params.id, req.body.id);
+        res.status(200).send(postReadBy);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+}

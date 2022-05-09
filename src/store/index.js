@@ -15,6 +15,10 @@ const store = new Vuex.Store({
         getCurrentPost(state) {
             return state.posts.find(post => post._id === state.currentPostId);
         },
+        getPostsUnreadByUserLogged(state) {
+            const postsByOtherUsers = state.posts.filter(post => post.user._id !== state.isLogged._id);
+            return postsByOtherUsers.filter(post => !post.readBy.includes(state.isLogged._id));
+        }
     },
     mutations: {
         logUser(state, user) {
@@ -33,6 +37,9 @@ const store = new Vuex.Store({
                 }
             }
         },
+        updateReadBy(state, postId) {
+            state.posts.find(post => post._id === postId).readBy.push(state.isLogged._id);
+        }
     },
     actions: {
         logUser(context, user) {
@@ -65,8 +72,19 @@ const store = new Vuex.Store({
                     context.commit("setPosts", response.data);
                 })
         },
-        setCurrentPost(context, postId) {
-            context.commit("setCurrentPost", postId);
+        async setCurrentPost(context, post) {
+            context.commit("setCurrentPost", post._id);
+            if (!post.readBy.includes(context.state.isLogged._id)) {
+                axios.put(`http://localhost:3000/post/readby/${context.state.currentPostId}`,
+                    {id: context.state.isLogged._id}, context.state.header)
+                    .then(() => {
+                        context.commit("updateReadBy", post._id);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+
         },
         disconnect(context) {
             localStorage.clear();

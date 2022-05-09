@@ -9,7 +9,7 @@
       </div>
       <div
           class="flex justify-center items-center rounded-full bg-blue h-8 font-bold text-white px-6 hover:cursor-pointer
-          hover:scale-110 active:scale-100"
+          hover:scale-110 active:scale-100 transition-all"
           v-if="$store.getters.getCurrentPost.user._id !== $store.state.isLogged._id"
           v-bind:class="$store.getters.getCurrentPost.likes.includes($store.state.isLogged._id) ? 'bg-red' : 'bg-blue' "
           @click="likePost($store.getters.getCurrentPost._id)"

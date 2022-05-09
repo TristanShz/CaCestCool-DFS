@@ -170,11 +170,11 @@ textarea::-webkit-scrollbar-track {
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background: linear-gradient(left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.15));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.15));
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 textarea::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
 }
 </style>

@@ -24,7 +24,10 @@
 
     <ul class="text-xl ml-10 mr-10">
       <router-link to="/home">
-        <li class="my-6" v-bind:class="{'font-bold': $route.path==='/home'}">Mon mur</li>
+        <div class="flex justify-between items-center">
+          <li class="mt-6 mb-2" v-bind:class="{'font-bold': $route.path==='/home'}">Mon mur</li>
+          <new-post-notification></new-post-notification>
+        </div>
       </router-link>
       <router-link to="/messages">
         <li class="my-6" v-bind:class="{'font-bold': $route.path==='/messages'}">Mes messages</li>
@@ -40,9 +43,11 @@
 </template>
 
 <script>
+import newPostNotification from "@/components/newPostNotification";
+
 export default {
   name: "sideMenu.vue",
-  components: {}
+  components: {newPostNotification}
 
 }
 </script>

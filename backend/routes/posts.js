@@ -22,5 +22,6 @@ router.delete("/:id", verifyJwtToken, PostsController.delete);
 router.delete("/:id/:commentId", verifyJwtToken, CommentsController.delete)
 //route UPDATE /post/id
 router.put("/:id", verifyJwtToken, upload.single("image"), PostsController.modify);
-
+//route UPDATE readBy pour marqué un post comme lu /post/:id
+router.put("/readby/:id", verifyJwtToken, PostsController.updateReadBy);
 module.exports = router;

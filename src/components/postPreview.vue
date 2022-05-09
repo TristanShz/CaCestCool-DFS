@@ -3,11 +3,11 @@
     <h1 class="text-titlegrey text-4xl mt-32 mb-5 self-start">Mon Mur</h1>
     <add-post></add-post>
     <div id="line" class="mt-5"></div>
-    <div class="postpreview flex bg-white h-auto my-5 w-full hover:cursor-pointer hover:scale-105"
+    <div class="postpreview flex bg-white h-auto my-5 w-full hover:cursor-pointer hover:scale-105 transition-all"
          v-for="post in $store.state.posts"
          :key="post._id"
     >
-      <div class="flex pl-8 w-full" @click="$store.dispatch('setCurrentPost',post._id)">
+      <div class="flex pl-8 w-full" @click="$store.dispatch('setCurrentPost',post)">
         <img v-if="post.user.profilPicture" :src="require(`@/assets/userImages/${post.user.profilPicture}`)"
              alt="" class="w-16 h-16 rounded-full object-cover self-center mr-5">
         <div v-else
@@ -18,7 +18,12 @@
         </div>
 
         <div class="flex flex-col mt-3 w-3/4">
-          <h2 class="font-bold">{{ post.title }}</h2>
+          <div class="w-full flex justify-between">
+            <h2 class="font-bold">{{ post.title }}</h2>
+            <p class="text-blue font-medium"
+               v-if="!post.readBy.includes($store.state.isLogged._id) && post.user._id !== $store.state.isLogged._id">
+              New !</p>
+          </div>
           <p class="leading-4 mt-1 text-lightgrey">{{ post.description.slice(0, 110) + "..." }}</p>
           <div class="flex justify-between my-4 text-lightgrey font-light">
             <span class="flex"><img class="mr-2" src="../assets/comment.svg" alt="">{{ post.comments.length }} comments</span>

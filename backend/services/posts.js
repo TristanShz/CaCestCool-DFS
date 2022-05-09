@@ -8,7 +8,7 @@ exports.add = (postBody) => {
     return post.save();
 }
 exports.getList = () => {
-    return Post.find({}).populate("user").populate("comments.user");
+    return Post.find({}).populate(["user", "comments.user"]);
 }
 exports.getListByUser = (userId) => {
     return Post.find({user: userId}).populate("user").populate("comments.user");
@@ -49,4 +49,15 @@ exports.like = async (postId, userId) => {
     }
     post.markModified('likes');
     return post.save();
+}
+
+exports.updateReadBy = async (postId, userId) => {
+    const post = await Post.findOne({_id: postId}).exec();
+    if (post.readBy.includes(userId)) {
+        return 0;
+    } else {
+        post.readBy.push(userId);
+        post.markModified('readBy');
+        return post.save();
+    }
 }

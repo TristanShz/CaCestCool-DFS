@@ -15,7 +15,6 @@ router.post("/login", UsersController.login);
 router.post("/token", UsersController.checkToken);
 //route DELETE /users/id
 router.delete("/:id", verifyJwtToken, UsersController.delete);
-
 //route UPDATE /users/id
 router.put("/:id", verifyJwtToken, upload.single("image"), UsersController.modify);
 //route UPDATE password /users/password/:userId

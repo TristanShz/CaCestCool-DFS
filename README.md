@@ -10,8 +10,29 @@
 ### Requis pour faire tourner l'application
 
 #### Une base de donnée MongoDB
-- Nom: cacestcool
+- Nom de la db : cacestcool
 - Collections : posts, users
+- User/pwd : admin admin
+
+```
+mongosh 
+use cacestcool
+db.createUser( {user: "admin", pwd: "admin", roles:[{role: "dbOwner" , db:"cacestcool"}]}) 
+db.createCollection("posts")
+db.createCollection("users")
+```
+
+#### Commandes
+
+- Démarrer le back :
+```
+npm start
+```
+
+- Démarrer le front :
+```
+npm run serve
+```
 
 #### Modifier le .env si c'est nécessaire
 
